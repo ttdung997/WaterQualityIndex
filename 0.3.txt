@@ -1,0 +1,272 @@
+Gayang<--->Cheonggyecheon Stream 1 ||| correlation: 0.35123184635946003
+Gayang<--->Jamsil ||| correlation: 0.3982201738000082
+Gayang<--->Yeongdeungpo ||| correlation: 0.6701405980949531
+Gayang<--->Noryangjin ||| correlation: 0.7604127884172401
+Gayang<--->Ttukdo ||| correlation: 0.446379501198211
+Gayang<--->Seongnaecheon Stream ||| correlation: 0.3575124110209668
+Gayang<--->Bogwang ||| correlation: 0.3932711990294373
+Hongjecheon Stream<--->Tancheon Stream 5 ||| correlation: 0.6962993541628831
+Hongjecheon Stream<--->Cheonggyecheon Stream 3 ||| correlation: 0.6422502098008136
+Hongjecheon Stream<--->Cheonggyecheon Stream 2 ||| correlation: 0.5841247130231122
+Hongjecheon Stream<--->Cheonggyecheon Stream 1 ||| correlation: 0.31951500160721497
+Hongjecheon Stream<--->Jungnangcheon Stream 4 ||| correlation: 0.7153490830509713
+Hongjecheon Stream<--->Jungnangcheon Stream 3 ||| correlation: 0.6161592225394492
+Hongjecheon Stream<--->Jeongneungcheon Stream ||| correlation: 0.4430643025907494
+Hongjecheon Stream<--->Uicheon Stream ||| correlation: 0.4791460578383454
+Hongjecheon Stream<--->Jungnangcheon Stream 2 ||| correlation: 0.5512973224565599
+Hongjecheon Stream<--->Noryangjin ||| correlation: 0.30144057718975426
+Hongjecheon Stream<--->Dorimcheon Stream ||| correlation: 0.6272435313304734
+Hongjecheon Stream<--->GoDeokcheon Stream ||| correlation: 0.4155640677431273
+Hongjecheon Stream<--->Seongnaecheon Stream ||| correlation: 0.7567277516183154
+Hongjecheon Stream<--->Seongbukcheon Stream ||| correlation: 0.5214871635194828
+Hongjecheon Stream<--->Ahnyangcheon Stream 4 ||| correlation: 0.4679541875865199
+Hongjecheon Stream<--->Ahnyangcheon Stream 5 ||| correlation: 0.7641077988629487
+Tancheon Stream 5<--->Hongjecheon Stream ||| correlation: 0.6962993541628831
+Tancheon Stream 5<--->Cheonggyecheon Stream 3 ||| correlation: 0.60484355170549
+Tancheon Stream 5<--->Cheonggyecheon Stream 2 ||| correlation: 0.5490073250927089
+Tancheon Stream 5<--->Jungnangcheon Stream 4 ||| correlation: 0.6040533906142351
+Tancheon Stream 5<--->Jungnangcheon Stream 3 ||| correlation: 0.49957389451152806
+Tancheon Stream 5<--->Jeongneungcheon Stream ||| correlation: 0.3243778685827578
+Tancheon Stream 5<--->Uicheon Stream ||| correlation: 0.5576860248513097
+Tancheon Stream 5<--->Jungnangcheon Stream 2 ||| correlation: 0.6802204077242465
+Tancheon Stream 5<--->Dorimcheon Stream ||| correlation: 0.4824862683773134
+Tancheon Stream 5<--->GoDeokcheon Stream ||| correlation: 0.3205960477415952
+Tancheon Stream 5<--->Seongnaecheon Stream ||| correlation: 0.5684623494095961
+Tancheon Stream 5<--->Seongbukcheon Stream ||| correlation: 0.6443538283742434
+Tancheon Stream 5<--->Ahnyangcheon Stream 4 ||| correlation: 0.5475913746873284
+Tancheon Stream 5<--->Ahnyangcheon Stream 5 ||| correlation: 0.7814748221476231
+Cheonggyecheon Stream 3<--->Hongjecheon Stream ||| correlation: 0.6422502098008136
+Cheonggyecheon Stream 3<--->Tancheon Stream 5 ||| correlation: 0.60484355170549
+Cheonggyecheon Stream 3<--->Cheonggyecheon Stream 2 ||| correlation: 0.5980898248741814
+Cheonggyecheon Stream 3<--->Jungnangcheon Stream 4 ||| correlation: 0.6135182957709008
+Cheonggyecheon Stream 3<--->Jungnangcheon Stream 3 ||| correlation: 0.6328386412962776
+Cheonggyecheon Stream 3<--->Jeongneungcheon Stream ||| correlation: 0.46360998123917757
+Cheonggyecheon Stream 3<--->Uicheon Stream ||| correlation: 0.7088802269418562
+Cheonggyecheon Stream 3<--->Jungnangcheon Stream 2 ||| correlation: 0.5976603518846192
+Cheonggyecheon Stream 3<--->Noryangjin ||| correlation: 0.3413868752403747
+Cheonggyecheon Stream 3<--->Dorimcheon Stream ||| correlation: 0.4331500067212963
+Cheonggyecheon Stream 3<--->GoDeokcheon Stream ||| correlation: 0.38881735225647135
+Cheonggyecheon Stream 3<--->Seongnaecheon Stream ||| correlation: 0.6210101613884645
+Cheonggyecheon Stream 3<--->Seongbukcheon Stream ||| correlation: 0.5134889269337479
+Cheonggyecheon Stream 3<--->Ahnyangcheon Stream 4 ||| correlation: 0.472729031363668
+Cheonggyecheon Stream 3<--->Ahnyangcheon Stream 5 ||| correlation: 0.656271099046626
+Cheonggyecheon Stream 2<--->Hongjecheon Stream ||| correlation: 0.5841247130231122
+Cheonggyecheon Stream 2<--->Tancheon Stream 5 ||| correlation: 0.5490073250927089
+Cheonggyecheon Stream 2<--->Cheonggyecheon Stream 3 ||| correlation: 0.5980898248741814
+Cheonggyecheon Stream 2<--->Cheonggyecheon Stream 1 ||| correlation: 0.4713792116033202
+Cheonggyecheon Stream 2<--->Jungnangcheon Stream 4 ||| correlation: 0.5419141626856357
+Cheonggyecheon Stream 2<--->Jungnangcheon Stream 3 ||| correlation: 0.42329986423581745
+Cheonggyecheon Stream 2<--->Jeongneungcheon Stream ||| correlation: 0.36962339165358205
+Cheonggyecheon Stream 2<--->Uicheon Stream ||| correlation: 0.6222034312397193
+Cheonggyecheon Stream 2<--->Jungnangcheon Stream 2 ||| correlation: 0.6950235667074357
+Cheonggyecheon Stream 2<--->Noryangjin ||| correlation: 0.3869083155891684
+Cheonggyecheon Stream 2<--->Dorimcheon Stream ||| correlation: 0.5715000411052478
+Cheonggyecheon Stream 2<--->Seongnaecheon Stream ||| correlation: 0.6223314870404048
+Cheonggyecheon Stream 2<--->Seongbukcheon Stream ||| correlation: 0.39727662820813425
+Cheonggyecheon Stream 2<--->Ahnyangcheon Stream 4 ||| correlation: 0.3895913215738958
+Cheonggyecheon Stream 2<--->Ahnyangcheon Stream 5 ||| correlation: 0.549592132059282
+Cheonggyecheon Stream 1<--->Gayang ||| correlation: 0.35123184635946003
+Cheonggyecheon Stream 1<--->Hongjecheon Stream ||| correlation: 0.31951500160721497
+Cheonggyecheon Stream 1<--->Cheonggyecheon Stream 2 ||| correlation: 0.4713792116033202
+Cheonggyecheon Stream 1<--->Jeongneungcheon Stream ||| correlation: 0.4490182243261422
+Cheonggyecheon Stream 1<--->Noryangjin ||| correlation: 0.39766213306680953
+Cheonggyecheon Stream 1<--->Seongnaecheon Stream ||| correlation: 0.3423426624756443
+Jungnangcheon Stream 4<--->Hongjecheon Stream ||| correlation: 0.7153490830509713
+Jungnangcheon Stream 4<--->Tancheon Stream 5 ||| correlation: 0.6040533906142351
+Jungnangcheon Stream 4<--->Cheonggyecheon Stream 3 ||| correlation: 0.6135182957709008
+Jungnangcheon Stream 4<--->Cheonggyecheon Stream 2 ||| correlation: 0.5419141626856357
+Jungnangcheon Stream 4<--->Jungnangcheon Stream 3 ||| correlation: 0.7784721542007547
+Jungnangcheon Stream 4<--->Jeongneungcheon Stream ||| correlation: 0.4008141439625724
+Jungnangcheon Stream 4<--->Uicheon Stream ||| correlation: 0.6201942168563936
+Jungnangcheon Stream 4<--->Jungnangcheon Stream 2 ||| correlation: 0.7366963533287586
+Jungnangcheon Stream 4<--->Noryangjin ||| correlation: 0.305828228437693
+Jungnangcheon Stream 4<--->Dorimcheon Stream ||| correlation: 0.48125662072489855
+Jungnangcheon Stream 4<--->GoDeokcheon Stream ||| correlation: 0.3073133992842921
+Jungnangcheon Stream 4<--->Seongnaecheon Stream ||| correlation: 0.6410085192165271
+Jungnangcheon Stream 4<--->Seongbukcheon Stream ||| correlation: 0.4809182921664843
+Jungnangcheon Stream 4<--->Ahnyangcheon Stream 4 ||| correlation: 0.4202071685033939
+Jungnangcheon Stream 4<--->Ahnyangcheon Stream 5 ||| correlation: 0.666305111065441
+Jungnangcheon Stream 3<--->Hongjecheon Stream ||| correlation: 0.6161592225394492
+Jungnangcheon Stream 3<--->Tancheon Stream 5 ||| correlation: 0.49957389451152806
+Jungnangcheon Stream 3<--->Cheonggyecheon Stream 3 ||| correlation: 0.6328386412962776
+Jungnangcheon Stream 3<--->Cheonggyecheon Stream 2 ||| correlation: 0.42329986423581745
+Jungnangcheon Stream 3<--->Jungnangcheon Stream 4 ||| correlation: 0.7784721542007547
+Jungnangcheon Stream 3<--->Jeongneungcheon Stream ||| correlation: 0.5498465505004357
+Jungnangcheon Stream 3<--->Uicheon Stream ||| correlation: 0.647621236690157
+Jungnangcheon Stream 3<--->Jungnangcheon Stream 2 ||| correlation: 0.7066659519096359
+Jungnangcheon Stream 3<--->Dorimcheon Stream ||| correlation: 0.44413199522208346
+Jungnangcheon Stream 3<--->Seongnaecheon Stream ||| correlation: 0.5359388688339313
+Jungnangcheon Stream 3<--->Seongbukcheon Stream ||| correlation: 0.4413787310713279
+Jungnangcheon Stream 3<--->Ahnyangcheon Stream 5 ||| correlation: 0.5530910845523703
+Jeongneungcheon Stream<--->Hongjecheon Stream ||| correlation: 0.4430643025907494
+Jeongneungcheon Stream<--->Tancheon Stream 5 ||| correlation: 0.3243778685827578
+Jeongneungcheon Stream<--->Cheonggyecheon Stream 3 ||| correlation: 0.46360998123917757
+Jeongneungcheon Stream<--->Cheonggyecheon Stream 2 ||| correlation: 0.36962339165358205
+Jeongneungcheon Stream<--->Cheonggyecheon Stream 1 ||| correlation: 0.4490182243261422
+Jeongneungcheon Stream<--->Jungnangcheon Stream 4 ||| correlation: 0.4008141439625724
+Jeongneungcheon Stream<--->Jungnangcheon Stream 3 ||| correlation: 0.5498465505004357
+Jeongneungcheon Stream<--->Uicheon Stream ||| correlation: 0.584513490346405
+Jeongneungcheon Stream<--->Jungnangcheon Stream 2 ||| correlation: 0.45813101216071744
+Jeongneungcheon Stream<--->Noryangjin ||| correlation: 0.3484170112030111
+Jeongneungcheon Stream<--->Dorimcheon Stream ||| correlation: 0.3835372999992216
+Jeongneungcheon Stream<--->Seongnaecheon Stream ||| correlation: 0.3990597193497743
+Jeongneungcheon Stream<--->Seongbukcheon Stream ||| correlation: 0.37325301062679966
+Jeongneungcheon Stream<--->Ahnyangcheon Stream 4 ||| correlation: 0.33802949736564564
+Jeongneungcheon Stream<--->Ahnyangcheon Stream 5 ||| correlation: 0.41280791515095944
+Jamsil<--->Gayang ||| correlation: 0.3982201738000082
+Jamsil<--->Yeongdeungpo ||| correlation: 0.3531892327182949
+Jamsil<--->Amsa ||| correlation: 0.6458197856413457
+Jamsil<--->Noryangjin ||| correlation: 0.36251993148688955
+Jamsil<--->Ttukdo ||| correlation: 0.46066980358853304
+Uicheon Stream<--->Hongjecheon Stream ||| correlation: 0.4791460578383454
+Uicheon Stream<--->Tancheon Stream 5 ||| correlation: 0.5576860248513097
+Uicheon Stream<--->Cheonggyecheon Stream 3 ||| correlation: 0.7088802269418562
+Uicheon Stream<--->Cheonggyecheon Stream 2 ||| correlation: 0.6222034312397193
+Uicheon Stream<--->Jungnangcheon Stream 4 ||| correlation: 0.6201942168563936
+Uicheon Stream<--->Jungnangcheon Stream 3 ||| correlation: 0.647621236690157
+Uicheon Stream<--->Jeongneungcheon Stream ||| correlation: 0.584513490346405
+Uicheon Stream<--->Jungnangcheon Stream 2 ||| correlation: 0.7908764696345288
+Uicheon Stream<--->Noryangjin ||| correlation: 0.315809743269763
+Uicheon Stream<--->Dorimcheon Stream ||| correlation: 0.393597264519891
+Uicheon Stream<--->GoDeokcheon Stream ||| correlation: 0.37425639659046045
+Uicheon Stream<--->Seongnaecheon Stream ||| correlation: 0.5380821691845037
+Uicheon Stream<--->Seongbukcheon Stream ||| correlation: 0.5598456531872579
+Uicheon Stream<--->Ahnyangcheon Stream 4 ||| correlation: 0.5091677063509946
+Uicheon Stream<--->Ahnyangcheon Stream 5 ||| correlation: 0.5912346969323957
+Yeongdeungpo<--->Gayang ||| correlation: 0.6701405980949531
+Yeongdeungpo<--->Jamsil ||| correlation: 0.3531892327182949
+Yeongdeungpo<--->Noryangjin ||| correlation: 0.6242713936689895
+Yeongdeungpo<--->Ttukdo ||| correlation: 0.7218589340504531
+Yeongdeungpo<--->Bogwang ||| correlation: 0.7268949443185228
+Jungnangcheon Stream 2<--->Hongjecheon Stream ||| correlation: 0.5512973224565599
+Jungnangcheon Stream 2<--->Tancheon Stream 5 ||| correlation: 0.6802204077242465
+Jungnangcheon Stream 2<--->Cheonggyecheon Stream 3 ||| correlation: 0.5976603518846192
+Jungnangcheon Stream 2<--->Cheonggyecheon Stream 2 ||| correlation: 0.6950235667074357
+Jungnangcheon Stream 2<--->Jungnangcheon Stream 4 ||| correlation: 0.7366963533287586
+Jungnangcheon Stream 2<--->Jungnangcheon Stream 3 ||| correlation: 0.7066659519096359
+Jungnangcheon Stream 2<--->Jeongneungcheon Stream ||| correlation: 0.45813101216071744
+Jungnangcheon Stream 2<--->Uicheon Stream ||| correlation: 0.7908764696345288
+Jungnangcheon Stream 2<--->Dorimcheon Stream ||| correlation: 0.4979700474659466
+Jungnangcheon Stream 2<--->GoDeokcheon Stream ||| correlation: 0.34481452040010985
+Jungnangcheon Stream 2<--->Seongnaecheon Stream ||| correlation: 0.6230609672529005
+Jungnangcheon Stream 2<--->Seongbukcheon Stream ||| correlation: 0.5843589366057939
+Jungnangcheon Stream 2<--->Ahnyangcheon Stream 4 ||| correlation: 0.3865368196740794
+Jungnangcheon Stream 2<--->Ahnyangcheon Stream 5 ||| correlation: 0.6258592553319011
+Amsa<--->Jamsil ||| correlation: 0.6458197856413457
+Amsa<--->Guui ||| correlation: 0.4045670477255906
+Amsa<--->Ttukdo ||| correlation: 0.37243312820668617
+Guui<--->Amsa ||| correlation: 0.4045670477255906
+Guui<--->Noryangjin ||| correlation: 0.34181886332563044
+Noryangjin<--->Gayang ||| correlation: 0.7604127884172401
+Noryangjin<--->Hongjecheon Stream ||| correlation: 0.30144057718975426
+Noryangjin<--->Cheonggyecheon Stream 3 ||| correlation: 0.3413868752403747
+Noryangjin<--->Cheonggyecheon Stream 2 ||| correlation: 0.3869083155891684
+Noryangjin<--->Cheonggyecheon Stream 1 ||| correlation: 0.39766213306680953
+Noryangjin<--->Jungnangcheon Stream 4 ||| correlation: 0.305828228437693
+Noryangjin<--->Jeongneungcheon Stream ||| correlation: 0.3484170112030111
+Noryangjin<--->Jamsil ||| correlation: 0.36251993148688955
+Noryangjin<--->Uicheon Stream ||| correlation: 0.315809743269763
+Noryangjin<--->Yeongdeungpo ||| correlation: 0.6242713936689895
+Noryangjin<--->Guui ||| correlation: 0.34181886332563044
+Noryangjin<--->Ttukdo ||| correlation: 0.5160177214994993
+Noryangjin<--->Seongnaecheon Stream ||| correlation: 0.4087563064440141
+Noryangjin<--->Ahnyangcheon Stream 4 ||| correlation: 0.34325351043088476
+Noryangjin<--->Ahnyangcheon Stream 5 ||| correlation: 0.40693782800481115
+Noryangjin<--->Bogwang ||| correlation: 0.5412908392659753
+Dorimcheon Stream<--->Hongjecheon Stream ||| correlation: 0.6272435313304734
+Dorimcheon Stream<--->Tancheon Stream 5 ||| correlation: 0.4824862683773134
+Dorimcheon Stream<--->Cheonggyecheon Stream 3 ||| correlation: 0.4331500067212963
+Dorimcheon Stream<--->Cheonggyecheon Stream 2 ||| correlation: 0.5715000411052478
+Dorimcheon Stream<--->Jungnangcheon Stream 4 ||| correlation: 0.48125662072489855
+Dorimcheon Stream<--->Jungnangcheon Stream 3 ||| correlation: 0.44413199522208346
+Dorimcheon Stream<--->Jeongneungcheon Stream ||| correlation: 0.3835372999992216
+Dorimcheon Stream<--->Uicheon Stream ||| correlation: 0.393597264519891
+Dorimcheon Stream<--->Jungnangcheon Stream 2 ||| correlation: 0.4979700474659466
+Dorimcheon Stream<--->Seongnaecheon Stream ||| correlation: 0.6389217805286093
+Dorimcheon Stream<--->Seongbukcheon Stream ||| correlation: 0.490025360930034
+Dorimcheon Stream<--->Ahnyangcheon Stream 4 ||| correlation: 0.3018310559382241
+Dorimcheon Stream<--->Ahnyangcheon Stream 5 ||| correlation: 0.46778457701019444
+Ttukdo<--->Gayang ||| correlation: 0.446379501198211
+Ttukdo<--->Jamsil ||| correlation: 0.46066980358853304
+Ttukdo<--->Yeongdeungpo ||| correlation: 0.7218589340504531
+Ttukdo<--->Amsa ||| correlation: 0.37243312820668617
+Ttukdo<--->Noryangjin ||| correlation: 0.5160177214994993
+Ttukdo<--->Bogwang ||| correlation: 0.8612075610640567
+GoDeokcheon Stream<--->Hongjecheon Stream ||| correlation: 0.4155640677431273
+GoDeokcheon Stream<--->Tancheon Stream 5 ||| correlation: 0.3205960477415952
+GoDeokcheon Stream<--->Cheonggyecheon Stream 3 ||| correlation: 0.38881735225647135
+GoDeokcheon Stream<--->Jungnangcheon Stream 4 ||| correlation: 0.3073133992842921
+GoDeokcheon Stream<--->Uicheon Stream ||| correlation: 0.37425639659046045
+GoDeokcheon Stream<--->Jungnangcheon Stream 2 ||| correlation: 0.34481452040010985
+GoDeokcheon Stream<--->Seongnaecheon Stream ||| correlation: 0.3898604082936312
+GoDeokcheon Stream<--->Ahnyangcheon Stream 4 ||| correlation: 0.38025287261786644
+GoDeokcheon Stream<--->Ahnyangcheon Stream 5 ||| correlation: 0.4026895078931039
+Seongnaecheon Stream<--->Gayang ||| correlation: 0.3575124110209668
+Seongnaecheon Stream<--->Hongjecheon Stream ||| correlation: 0.7567277516183154
+Seongnaecheon Stream<--->Tancheon Stream 5 ||| correlation: 0.5684623494095961
+Seongnaecheon Stream<--->Cheonggyecheon Stream 3 ||| correlation: 0.6210101613884645
+Seongnaecheon Stream<--->Cheonggyecheon Stream 2 ||| correlation: 0.6223314870404048
+Seongnaecheon Stream<--->Cheonggyecheon Stream 1 ||| correlation: 0.3423426624756443
+Seongnaecheon Stream<--->Jungnangcheon Stream 4 ||| correlation: 0.6410085192165271
+Seongnaecheon Stream<--->Jungnangcheon Stream 3 ||| correlation: 0.5359388688339313
+Seongnaecheon Stream<--->Jeongneungcheon Stream ||| correlation: 0.3990597193497743
+Seongnaecheon Stream<--->Uicheon Stream ||| correlation: 0.5380821691845037
+Seongnaecheon Stream<--->Jungnangcheon Stream 2 ||| correlation: 0.6230609672529005
+Seongnaecheon Stream<--->Noryangjin ||| correlation: 0.4087563064440141
+Seongnaecheon Stream<--->Dorimcheon Stream ||| correlation: 0.6389217805286093
+Seongnaecheon Stream<--->GoDeokcheon Stream ||| correlation: 0.3898604082936312
+Seongnaecheon Stream<--->Seongbukcheon Stream ||| correlation: 0.5348881210180345
+Seongnaecheon Stream<--->Ahnyangcheon Stream 4 ||| correlation: 0.39567929458173745
+Seongnaecheon Stream<--->Ahnyangcheon Stream 5 ||| correlation: 0.7697084190297263
+Seongnaecheon Stream<--->Bogwang ||| correlation: 0.3197265656674687
+Seongbukcheon Stream<--->Hongjecheon Stream ||| correlation: 0.5214871635194828
+Seongbukcheon Stream<--->Tancheon Stream 5 ||| correlation: 0.6443538283742434
+Seongbukcheon Stream<--->Cheonggyecheon Stream 3 ||| correlation: 0.5134889269337479
+Seongbukcheon Stream<--->Cheonggyecheon Stream 2 ||| correlation: 0.39727662820813425
+Seongbukcheon Stream<--->Jungnangcheon Stream 4 ||| correlation: 0.4809182921664843
+Seongbukcheon Stream<--->Jungnangcheon Stream 3 ||| correlation: 0.4413787310713279
+Seongbukcheon Stream<--->Jeongneungcheon Stream ||| correlation: 0.37325301062679966
+Seongbukcheon Stream<--->Uicheon Stream ||| correlation: 0.5598456531872579
+Seongbukcheon Stream<--->Jungnangcheon Stream 2 ||| correlation: 0.5843589366057939
+Seongbukcheon Stream<--->Dorimcheon Stream ||| correlation: 0.490025360930034
+Seongbukcheon Stream<--->Seongnaecheon Stream ||| correlation: 0.5348881210180345
+Seongbukcheon Stream<--->Ahnyangcheon Stream 4 ||| correlation: 0.43030804018049185
+Seongbukcheon Stream<--->Ahnyangcheon Stream 5 ||| correlation: 0.6742709760188036
+Seongbukcheon Stream<--->Bogwang ||| correlation: 0.3661918245677905
+Ahnyangcheon Stream 4<--->Hongjecheon Stream ||| correlation: 0.4679541875865199
+Ahnyangcheon Stream 4<--->Tancheon Stream 5 ||| correlation: 0.5475913746873284
+Ahnyangcheon Stream 4<--->Cheonggyecheon Stream 3 ||| correlation: 0.472729031363668
+Ahnyangcheon Stream 4<--->Cheonggyecheon Stream 2 ||| correlation: 0.3895913215738958
+Ahnyangcheon Stream 4<--->Jungnangcheon Stream 4 ||| correlation: 0.4202071685033939
+Ahnyangcheon Stream 4<--->Jeongneungcheon Stream ||| correlation: 0.33802949736564564
+Ahnyangcheon Stream 4<--->Uicheon Stream ||| correlation: 0.5091677063509946
+Ahnyangcheon Stream 4<--->Jungnangcheon Stream 2 ||| correlation: 0.3865368196740794
+Ahnyangcheon Stream 4<--->Noryangjin ||| correlation: 0.34325351043088476
+Ahnyangcheon Stream 4<--->Dorimcheon Stream ||| correlation: 0.3018310559382241
+Ahnyangcheon Stream 4<--->GoDeokcheon Stream ||| correlation: 0.38025287261786644
+Ahnyangcheon Stream 4<--->Seongnaecheon Stream ||| correlation: 0.39567929458173745
+Ahnyangcheon Stream 4<--->Seongbukcheon Stream ||| correlation: 0.43030804018049185
+Ahnyangcheon Stream 4<--->Ahnyangcheon Stream 5 ||| correlation: 0.5338456576326611
+Ahnyangcheon Stream 5<--->Hongjecheon Stream ||| correlation: 0.7641077988629487
+Ahnyangcheon Stream 5<--->Tancheon Stream 5 ||| correlation: 0.7814748221476231
+Ahnyangcheon Stream 5<--->Cheonggyecheon Stream 3 ||| correlation: 0.656271099046626
+Ahnyangcheon Stream 5<--->Cheonggyecheon Stream 2 ||| correlation: 0.549592132059282
+Ahnyangcheon Stream 5<--->Jungnangcheon Stream 4 ||| correlation: 0.666305111065441
+Ahnyangcheon Stream 5<--->Jungnangcheon Stream 3 ||| correlation: 0.5530910845523703
+Ahnyangcheon Stream 5<--->Jeongneungcheon Stream ||| correlation: 0.41280791515095944
+Ahnyangcheon Stream 5<--->Uicheon Stream ||| correlation: 0.5912346969323957
+Ahnyangcheon Stream 5<--->Jungnangcheon Stream 2 ||| correlation: 0.6258592553319011
+Ahnyangcheon Stream 5<--->Noryangjin ||| correlation: 0.40693782800481115
+Ahnyangcheon Stream 5<--->Dorimcheon Stream ||| correlation: 0.46778457701019444
+Ahnyangcheon Stream 5<--->GoDeokcheon Stream ||| correlation: 0.4026895078931039
+Ahnyangcheon Stream 5<--->Seongnaecheon Stream ||| correlation: 0.7697084190297263
+Ahnyangcheon Stream 5<--->Seongbukcheon Stream ||| correlation: 0.6742709760188036
+Ahnyangcheon Stream 5<--->Ahnyangcheon Stream 4 ||| correlation: 0.5338456576326611
+Ahnyangcheon Stream 5<--->Bogwang ||| correlation: 0.3734308296532911
+Bogwang<--->Gayang ||| correlation: 0.3932711990294373
+Bogwang<--->Yeongdeungpo ||| correlation: 0.7268949443185228
+Bogwang<--->Noryangjin ||| correlation: 0.5412908392659753
+Bogwang<--->Ttukdo ||| correlation: 0.8612075610640567
+Bogwang<--->Seongnaecheon Stream ||| correlation: 0.3197265656674687
+Bogwang<--->Seongbukcheon Stream ||| correlation: 0.3661918245677905
+Bogwang<--->Ahnyangcheon Stream 5 ||| correlation: 0.3734308296532911

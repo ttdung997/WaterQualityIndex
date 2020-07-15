@@ -20,8 +20,11 @@ from matplotlib.dates import (YEARLY, DateFormatter,
 
 
 
-dataCol = ['Name (E)' ,'YY/MM','Dissolved Total N(㎎/L)', 'NH3-N(㎎/L)', 'NO3-N(㎎/L)', 'Dissolved Total P(㎎/L)','Conductivity(µS/㎝)','TSI(Chl-a)']
+# dataCol = ['Name (E)' ,'YY/MM','Dissolved Total N(㎎/L)', 'NH3-N(㎎/L)', 'NO3-N(㎎/L)', 'Dissolved Total P(㎎/L)','Conductivity(µS/㎝)','TSI(Chl-a)', 'Grade.3' ]
 
+dataCol = ['Name (E)' ,'YY/MM','NH3-N(㎎/L)', 'NO3-N(㎎/L)', 'PO4-P(㎎/L)',
+ 'T-N(㎎/L)','T-P(㎎/L)', 'Dissolved Total N(㎎/L)','Dissolved Total P(㎎/L)',
+  'Hydrogen ion conc.','DO (㎎/L)', 'TSI(Chl-a)']
 
 MasterDataframe = pd.read_excel('predata.xls')
 MasterDataframe.rename(columns=MasterDataframe.iloc[0])
@@ -83,12 +86,15 @@ test_output = np.empty((1,))
 # print(training_input)
 # print(test_input)
 # quit()
-norm_cols = ['NH3-N(㎎/L)', 'NO3-N(㎎/L)', 'Dissolved Total P(㎎/L)','TSI(Chl-a)']
+norm_cols = ['NH3-N(㎎/L)', 'NO3-N(㎎/L)', 'PO4-P(㎎/L)',
+ 'T-N(㎎/L)','T-P(㎎/L)', 'Dissolved Total N(㎎/L)','Dissolved Total P(㎎/L)',
+  'Hydrogen ion conc.','DO (㎎/L)', 'TSI(Chl-a)']
 
 dictrictLabel = []
 dictrictValue = []
 
 
+final_predict = []
 # quit()
 
 count = 0
@@ -143,7 +149,7 @@ for dictrict in dictrictArr:
 
 	dates = [i for i in range(0,len(predictions))]
 
-	mseValue =round(np.mean(np.abs(predictions[:len(real)] - real))/np.max(real)*100,2)
+	mseValue =(np.mean(np.abs(predictions[:len(real)] - real))/np.max(real))
 
 	if mseValue == 0.0:
 		continue
@@ -164,43 +170,64 @@ for dictrict in dictrictArr:
 	ax1.set_ylim(top=100)
 	# plt.show()
 	plt.savefig("sarima/"+ dictrict +'.png', dpi=100)
+
+	final_predict.append(predictions[-2:])
 	# quit()
 
 
-totalCount = 0
+# totalCount = 0
+dictrictName = []
 
+dictrictMSE = []
+print(final_predict)
+i= 0 
 for row in lenValue:
-	totalCount = totalCount + int(row[1])
-	print("Name: "+ row[0] + ", Count: " + str(row[1]) + ", Relative MSE:" + str(row[2])+"%")
+	if final_predict[i][0] > 60 or final_predict[i][1] >60:
+		grade = "Eutrophy"
+		if final_predict[i][0] > 70 or final_predict[i][1] >70:
+			grade = "Hypereutrophy"
+		if final_predict[i][0] > 80 or final_predict[i][1] >80:
+			grade = "Algae bloom"
+		print("tram "+ row[2]+ " co kha nang no hoa")
+		print("Grade:" + grade) 
+	i = i +1
+	# totalCount = totalCount + int(row[1])
+	# print("Name: "+ row[0] + ", Count: " + str(row[1]) + ", Relative MSE:" + str(row[2])+"%")
+	dictrictName.append(row[0])
+	dictrictMSE.append(row[2])
 
-print(totalCount)
+quit()
+df = pd.DataFrame(list(zip(dictrictName, dictrictMSE)), 
+               columns =['Name', 'val']) 
+df.to_csv("sarima.csv")
+# print(totalCount)
 
-print(dictrictLabel)
-print(dictrictValue)
+# print(dictrictLabel)
+# print(dictrictValue)
 
-dictrictValue = np.array(dictrictValue).transpose().tolist()
+# dictrictValue = np.array(dictrictValue).transpose().tolist()
 
-# print(len(dictrictValue))
-# print(len(dictrictLabel))
-
-
-df = pd.DataFrame(data =dictrictValue).transpose()
-df.columns = dictrictLabel
-# print(df)
-
-correlation = (df.corr())
-
-# correlation.to_csv("output.csv")
+# # print(len(dictrictValue))
+# # print(len(dictrictLabel))
 
 
-correlation = correlation.values
+# df = pd.DataFrame(data =dictrictValue).transpose()
+# df.columns = dictrictLabel
+# # print(df)
+
+# correlation = (df.corr())
+
+# # correlation.to_csv("output.csv")
 
 
-# print(correlation[0][0])
+# correlation = correlation.values
 
-for i in range(0,26):
-	for j in range(0,26):
-		if i==j:
-			continue
-		if correlation[i][j] > 0.7:
-			print(dictrictLabel[i] + "<--->" + dictrictLabel [j] +" ||| correlation: "+str(correlation[i][j]))
+
+# # print(correlation[0][0])
+
+# for i in range(0,26):
+# 	for j in range(0,26):
+# 		if i==j:
+# 			continue
+# 		if correlation[i][j] > 0.7:
+# 			print(dictrictLabel[i] + "<--->" + dictrictLabel [j] +" ||| correlation: "+str(correlation[i][j]))

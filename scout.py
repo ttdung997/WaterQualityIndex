@@ -85,8 +85,22 @@ def build_GRU_model(inputs, output_size, neurons, activ_func="linear",
 
 # dataCol = ['Name (E)' ,'YY/MM','Dissolved Total N(㎎/L)', 'NH3-N(㎎/L)', 'NO3-N(㎎/L)', 'Dissolved Total P(㎎/L)','Conductivity(µS/㎝)','TSI(Chl-a)', 'Grade.3' ]
 
+# NH3-N(㎎/L)
+# NO3-N(㎎/L)
+# PO4-P(㎎/L)
+# T-N(㎎/L)
+# T-P(㎎/L)
+# Dissolved Total N(㎎/L)
+# Dissolved Total P(㎎/L)
+# Hydrogen ion conc.
+# DO (㎎/L)
 
-dataCol = ['Name (E)' ,'YY/MM','Dissolved Total N(㎎/L)', 'NH3-N(㎎/L)', 'NO3-N(㎎/L)', 'Dissolved Total P(㎎/L)','Conductivity(µS/㎝)','TSI(Chl-a)']
+dataCol = ['Name (E)' ,'YY/MM','NH3-N(㎎/L)', 'NO3-N(㎎/L)', 'PO4-P(㎎/L)',
+ 'T-N(㎎/L)','T-P(㎎/L)', 'Dissolved Total N(㎎/L)','Dissolved Total P(㎎/L)',
+  'Hydrogen ion conc.','DO (㎎/L)', 'TSI(Chl-a)']
+
+
+# dataCol = ['Name (E)' ,'YY/MM','Dissolved Total N(㎎/L)', 'NH3-N(㎎/L)', 'NO3-N(㎎/L)', 'Dissolved Total P(㎎/L)','Conductivity(µS/㎝)','TSI(Chl-a)']
 
 
 MasterDataframe = pd.read_excel('predata.xls')
@@ -108,6 +122,28 @@ df1 = MasterDataframe[dataCol]
 df2 = MasterDataframe2[dataCol]
 
 df = pd.concat([df1,df2])
+
+
+correlation = (df.corr())
+
+# correlation.to_csv("output.csv")
+
+# print(correlation)
+# correlation = correlation.values
+
+### Calculate correlation
+
+# # print(correlation[0][0])
+# print(len(dataCol))
+# for i in range(0,len(correlation)-1):
+# 	for j in range(0,len(correlation)-1):
+# 		if i==j:
+# 			continue
+# 		if correlation[i][j] > 0:
+# 			print(dataCol[i] + "<--->" + dataCol [j] +" ||| correlation: "+str(correlation[i][j]))
+
+# quit()
+
 
 # print(df.head())
 # print(df.describe())
@@ -144,9 +180,14 @@ test_output = np.empty((1,))
 # print(training_input)
 # print(test_input)
 # quit()
-norm_cols = ['NH3-N(㎎/L)', 'NO3-N(㎎/L)', 'Dissolved Total P(㎎/L)','TSI(Chl-a)']
-
+norm_cols = ['NH3-N(㎎/L)', 'NO3-N(㎎/L)', 'PO4-P(㎎/L)',
+ 'T-N(㎎/L)','T-P(㎎/L)', 'Dissolved Total N(㎎/L)','Dissolved Total P(㎎/L)',
+  'Hydrogen ion conc.','DO (㎎/L)', 'TSI(Chl-a)']
 count = 0
+
+dictrictMSE = []
+dictrictName =  []
+
 for dictrict in dictrictArr:
 	try:
 		print(dictrict)
@@ -216,29 +257,29 @@ for dictrict in dictrictArr:
 			training_output = LSTM_training_outputs 
 			test_input = LSTM_test_inputs 
 			test_output = LSTM_test_outputs 
-		my_model = ""
-		my_model = build_LSTM_model(LSTM_training_inputs, output_size=1, neurons = 35)
-		my_model.fit(LSTM_training_inputs, LSTM_training_outputs, 
-			epochs=50, batch_size=1, verbose=1, shuffle=True)
-		predict =  my_model.predict(LSTM_test_inputs)
+		# my_model = ""
+		# my_model = build_LSTM_model(LSTM_training_inputs, output_size=1, neurons = 35)
+		# my_model.fit(LSTM_training_inputs, LSTM_training_outputs, 
+		# 	epochs=30, batch_size=1, verbose=1, shuffle=True)
+		# predict =  my_model.predict(LSTM_test_inputs)
 
-		print(len(predict))
+		# print(len(predict))
 
-		dates = [1,2,3,4,5,6,7,8]
-		# fig, ax1 = plt.subplots(1,1)
-		# print(LSTM_test_inputs)
-		# print("***************************************")
-		# print(predict)
-		# print(test_set['TSI(Chl-a)'][window_len-1:].values)
-		# print("____________________________________________________")
-		# print(LSTM_test_outputs)
-		predict_based = test_set['TSI(Chl-a)'][window_len-1:].values
+		# dates = [1,2,3,4,5,6,7,8]
+		# # fig, ax1 = plt.subplots(1,1)
+		# # print(LSTM_test_inputs)
+		# # print("***************************************")
+		# # print(predict)
+		# # print(test_set['TSI(Chl-a)'][window_len-1:].values)
+		# # print("____________________________________________________")
+		# # print(LSTM_test_outputs)
+		# predict_based = test_set['TSI(Chl-a)'][window_len-1:].values
 
-		final_predict = []
-		final_predict.append(predict_based[1])
+		# final_predict = []
+		# final_predict.append(predict_based[1])
 
-		loop = 0
-		check = 0
+		# loop = 0
+		# check = 0
 		# for i in range(1, len(predict_based)):
 		# 	if predict_based[i] == predict_based[i-1]:
 		# 		loop = loop +1
@@ -247,40 +288,50 @@ for dictrict in dictrictArr:
 		# 			continue
 		# if check == 1:
 		# 	continue
-		for i in range(1, len(predict)):
-			temp = (1 + (predict[i]-predict[i-1])/predict[i-1])*predict_based[i-1]
-			final_predict.append(temp)
-		print(final_predict)
+		# for i in range(1, len(predict)):
+		# 	temp = (1 + (predict[i]-predict[i-1])/predict[i-1])*predict_based[i-1]
+		# 	final_predict.append(temp)
+		# print(final_predict)
+		# mseValue = np.mean(np.abs((final_predict) - test_set['TSI(Chl-a)'][window_len:].values))/max(final_predict)
 		
-		fig, ax1 = plt.subplots(1,1,figsize=(20,10))
-		ax1.plot(timeframe[:len(test_set['TSI(Chl-a)'][window_len:].values,)],test_set['TSI(Chl-a)'][window_len:].values, label='Actual')
-		ax1.plot(timeframe[:len(final_predict)],final_predict, label='Predicted')
-		ax1.annotate('MAE: %.4f'%np.mean(np.abs((final_predict) - test_set['TSI(Chl-a)'][window_len:].values)), 
-			xy=(0.75, 0.9),  xycoords='axes fraction',
-			xytext=(0.75, 0.9), textcoords='axes fraction')
+		# fig, ax1 = plt.subplots(1,1,figsize=(20,10))
+		# ax1.plot(timeframe[:len(test_set['TSI(Chl-a)'][window_len:].values,)],test_set['TSI(Chl-a)'][window_len:].values, label='Actual')
+		# ax1.plot(timeframe[:len(final_predict)],final_predict, label='Predicted')
+		# ax1.annotate('MAE: %.4f'%mseValue, 
+		# 	xy=(0.75, 0.9),  xycoords='axes fraction',
+		# 	xytext=(0.75, 0.9), textcoords='axes fraction')
 
-		ax1.set_title("Dự đoán nổng độ tảo tại trạm "+dictrict,fontsize=13)
-		ax1.legend()
-		fig.autofmt_xdate()
-		ax1.set_ylim(bottom=0)
-		ax1.set_ylim(top=100)
-		# ax1.set_ylabel('gía cổ phiếu (VND)',fontsize=12)
-		# ax1.xaxis.set_major_locator(loc)
-		# ax1.xaxis.set_major_formatter(formatter)
-		# ax1.xaxis.set_tick_params(rotation=10, labelsize=10)
+		# ax1.set_title("Dự đoán nổng độ tảo tại trạm "+dictrict,fontsize=13)
+		# ax1.legend()
+		# fig.autofmt_xdate()
 		# ax1.set_ylim(bottom=0)
 		# ax1.set_ylim(top=100)
-		# plt.show()
+		# # ax1.set_ylabel('gía cổ phiếu (VND)',fontsize=12)
+		# # ax1.xaxis.set_major_locator(loc)
+		# # ax1.xaxis.set_major_formatter(formatter)
+		# # ax1.xaxis.set_tick_params(rotation=10, labelsize=10)
+		# # ax1.set_ylim(bottom=0)
+		# # ax1.set_ylim(top=100)
+		# # plt.show()
 
-		plt.savefig("LSTM-tiny/"+ dictrict +'.png', dpi=100)
+		# dictrictName.append(dictrict)
+		# dictrictMSE.append(mseValue)
+
+		# plt.savefig("LSTM-tiny/"+ dictrict +'.png', dpi=100)
 
 	except:
 		continue
 
+# for i in range(0, len(dictrictName)):
+# 	print(dictrictName[i] + "||" + str(dictrictMSE[i]) + "|||")
 
-quit()
-print(len(training_input))
-print(len(training_output))
+# df = pd.DataFrame(list(zip(dictrictName, dictrictMSE)), 
+#                columns =['Name', 'val']) 
+# df.to_csv("tiny.csv")
+
+# quit()
+# print(len(training_input))
+# print(len(training_output))
 # quit()
 # my_model = build_LSTM_model(training_input, output_size=1, neurons = 100)
 # my_model.fit(training_input, training_output, 
@@ -306,9 +357,9 @@ my_model.load_weights(weight_output)
 
 # print(len(dictrictArr))
 # print(len(myDf))
-
+finalArr = []
 for dictrict in dictrictArr:
-	# try:
+	try:
 		count = count + 1
 		small_data = df[df['Name (E)']==dictrict]
 		# print(len(small_data))
@@ -389,10 +440,13 @@ for dictrict in dictrictArr:
 			final_predict.append(temp)
 		print(final_predict)
 		
+
+		mseValue = np.mean(np.abs((final_predict) - test_set['TSI(Chl-a)'][window_len:].values))/max(final_predict)
+		
 		fig, ax1 = plt.subplots(1,1,figsize=(20,10))
 		ax1.plot(timeframe[:len(test_set['TSI(Chl-a)'][window_len:].values,)],test_set['TSI(Chl-a)'][window_len:].values, label='Actual')
 		ax1.plot(timeframe[:len(final_predict)],final_predict, label='Predicted')
-		ax1.annotate('MAE: %.4f'%np.mean(np.abs((final_predict) - test_set['TSI(Chl-a)'][window_len:].values)), 
+		ax1.annotate('MAE: %.4f'%mseValue, 
 			xy=(0.75, 0.9),  xycoords='axes fraction',
 			xytext=(0.75, 0.9), textcoords='axes fraction')
 
@@ -408,9 +462,37 @@ for dictrict in dictrictArr:
 		# ax1.set_ylim(bottom=0)
 		# ax1.set_ylim(top=100)
 		# plt.show()
+		finalArr.append(final_predict[-2:])
+		dictrictName.append(dictrict)
+		dictrictMSE.append(mseValue)
 
 		plt.savefig("LSTM/"+ dictrict +'.png', dpi=100)
 	# 	# quit()
-	# except:
-	# 	continue
+	except:
+		continue
 
+
+for i in range(0, len(dictrictName)):
+	print(dictrictName[i] + "||" + str(dictrictMSE[i]) + "|||")
+
+df = pd.DataFrame(list(zip(dictrictName, dictrictMSE)), 
+               columns =['Name', 'val']) 
+df.to_csv("tiny.csv")
+
+# 30-40	0,95-2,6	Hypolimia: 
+# 40-50	2,6-7,3	Alpha- Mesotrophy
+# 50-60	7,3-20	Beta- Mesotrophy
+# 60-70	20-56	Eutrophy
+# 70-80	56-155	Hypereutrophy
+# >80	>155	Algae bloom
+
+print("final predict")
+for i in range(0, len(dictrictName)):
+	if finalArr[i][0] > 60 or finalArr[i][1] >60:
+		grade = "Eutrophy"
+		if finalArr[i][0] > 70 or finalArr[i][1] >70:
+			grade = "Hypereutrophy"
+		if finalArr[i][0] > 80 or finalArr[i][1] >80:
+			grade = "Algae bloom"
+		print("tram "+ dictrictName[i]+ " co kha nang no hoa")
+		print("Grade:" + grade) 

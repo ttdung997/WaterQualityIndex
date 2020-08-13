@@ -95,6 +95,7 @@ dictrictValue = []
 
 
 final_predict = []
+true_label = []
 # quit()
 
 count = 0
@@ -141,15 +142,15 @@ for dictrict in dictrictArr:
 	results = model.fit()
 
 
-	predictions= results.predict(start = 1, end= len(train_y) +5, exog= test_X[:6])
+	predictions= results.predict(start = len(train_y)  -13 , end= len(train_y) +2, exog= test_X[:3])
 
 	
 
-	real = output[:len(train_y) +2]
+	real = output[len(train_y)-13:len(train_y) +2]
 
 	dates = [i for i in range(0,len(predictions))]
 
-	mseValue =(np.mean(np.abs(predictions[:len(real)] - real))/np.max(real))
+	mseValue =(np.mean(np.abs(predictions[:len(real)] - real))/np.min(predictions))
 
 	if mseValue == 0.0:
 		continue
@@ -171,14 +172,58 @@ for dictrict in dictrictArr:
 	# plt.show()
 	plt.savefig("sarima/"+ dictrict +'.png', dpi=100)
 
-	final_predict.append(predictions[-2:])
+	final_predict.append(list(predictions[-2:]))
+	true_label.append(list(real[-2:]))
 	# quit()
 
 
 # totalCount = 0
-dictrictName = []
+# dictrictName = []
 
-dictrictMSE = []
+# dictrictMSE = []
+
+# print(dictrictName)
+print(final_predict)
+print(true_label)
+
+y_pred = []
+print("final predict")
+for i in range(0, len(lenValue)):
+	if final_predict[i][0] > 60 or final_predict[i][1] >60:
+		y_pred.append(1)
+	else:
+		y_pred.append(0)
+		# grade = "Eutrophy"
+		# if finalArr[i][0] > 70 or finalArr[i][1] >70:
+		# 	grade = "Hypereutrophy"
+		# if finalArr[i][0] > 80 or finalArr[i][1] >80:
+		# 	grade = "Algae bloom"
+		# print("tram "+ dictrictName[i]+ " co kha nang no hoa")
+		# print("Grade:" + grade) 
+
+y_true  = []
+print("final predict")
+for i in range(0, len(lenValue)):
+	if true_label[i][0] > 60 or true_label[i][1] >60:
+		y_true.append(1)
+	else:
+		y_true.append(0)
+		# grade = "Eutrophy"
+		# if finalArr2[i][0] > 70 or finalArr2[i][1] >70:
+		# 	grade = "Hypereutrophy"
+		# if finalArr2[i][0] > 80 or finalArr2[i][1] >80:
+		# 	grade = "Algae bloom"
+		# print("tram "+ dictrictName[i]+ " co kha nang no hoa")
+		# print("Grade:" + grade) 
+
+print(y_true)
+print(len(y_true))
+print(y_pred)
+print(len(y_pred))
+
+from sklearn.metrics import classification_report
+print(classification_report(y_true, y_pred))
+
 print(final_predict)
 i= 0 
 for row in lenValue:
@@ -196,7 +241,7 @@ for row in lenValue:
 	dictrictName.append(row[0])
 	dictrictMSE.append(row[2])
 
-quit()
+# quit()
 df = pd.DataFrame(list(zip(dictrictName, dictrictMSE)), 
                columns =['Name', 'val']) 
 df.to_csv("sarima.csv")

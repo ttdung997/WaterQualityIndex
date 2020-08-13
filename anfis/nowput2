@@ -1,0 +1,244 @@
+(88, 4)
+(88,)
+4
+current error: 6436.8526514368805
+current error: 6436.852651520831
+current error: 6436.852651612922
+current error: 6436.852651715848
+current error: 6436.852651816207
+current error: 6436.8526519066545
+current error: 6436.852652013584
+current error: 6436.852652111082
+current error: 6436.852652208356
+current error: 6436.852652298721
+current error: 6436.8526524059835
+current error: 6436.852652525238
+current error: 6436.852652617132
+current error: 6436.852652717911
+current error: 6436.8526528275925
+current error: 6436.852652928708
+current error: 6436.85265304509
+current error: 6436.852653142227
+current error: 6436.852653257602
+0.0
+0.0
+49.546639
+_________________________________________
+Seongnaecheon Stream
+MAE error!!!
+8.449010946774793
+0.11475892299759309
+(88, 4)
+(88,)
+4
+current error: 7632.185677365226
+current error: 7632.120664483604
+current error: 7632.0552140714535
+current error: 7631.989322203193
+current error: 7631.916334911242
+current error: 7631.835430610896
+current error: 7631.745680071042
+current error: 7631.646029588358
+current error: 7631.535281122951
+current error: 7631.412068344933
+current error: 7631.274828040752
+current error: 7631.1217656297185
+current error: 7630.950813280719
+current error: 7630.75957907887
+current error: 7630.545284859712
+current error: 7630.304689965416
+current error: 7630.033997677405
+current error: 7629.728739953893
+current error: 7629.3836357880755
+-1e-06
+-2.3e-05
+39.853357
+_________________________________________
+Seongbukcheon Stream
+MAE error!!!
+8.364374759848294
+0.11864361361486943
+(88, 4)
+(88,)
+4
+current error: 3271.5795532935717
+current error: 3271.579539370985
+current error: 3271.5795260409186
+current error: 3271.579513278206
+current error: 3271.5794998341516
+current error: 3271.579485731673
+current error: 3271.5794710058763
+current error: 3271.5794557063214
+current error: 3271.57943989537
+current error: 3271.5794236536985
+current error: 3271.5794070764027
+current error: 3271.57939027654
+current error: 3271.5793733806713
+current error: 3271.5793565276676
+current error: 3271.57933987059
+current error: 3271.5793235666342
+current error: 3271.579307776591
+current error: 3271.5792926598615
+current error: 3271.5792783640763
+0.0
+0.0
+54.893485
+_________________________________________
+Ahnyangcheon Stream 4
+MAE error!!!
+5.943617540263252
+0.0855972686069855
+(88, 4)
+(88,)
+4
+current error: 5201.704828048052
+current error: 5201.704828229947
+current error: 5201.704828668715
+current error: 5201.704828636132
+current error: 5201.704829675842
+current error: 5201.7048281667285
+current error: 5201.704828507708
+current error: 5201.704828047968
+current error: 5201.704828278486
+current error: 5201.704827836723
+current error: 5201.704827820329
+current error: 5201.704828361281
+current error: 5201.704828557808
+current error: 5201.704829423383
+current error: 5201.7048280223225
+current error: 5201.704828584556
+current error: 5201.704828853833
+current error: 5201.704828293179
+current error: 5201.704828802882
+-0.0
+-0.0
+51.203233
+_________________________________________
+Ahnyangcheon Stream 5
+MAE error!!!
+8.207136494229491
+0.11571081229175349
+(88, 4)
+(88,)
+4
+current error: 2926.97438540539
+current error: 2926.9743853963655
+current error: 2926.9743853865702
+current error: 2926.9743853765
+current error: 2926.9743853649206
+current error: 2926.974385352438
+current error: 2926.97438533761
+current error: 2926.974385320023
+current error: 2926.9743853007167
+current error: 2926.9743852780284
+current error: 2926.9743852507486
+current error: 2926.9743852189235
+current error: 2926.974385181954
+current error: 2926.9743851380226
+current error: 2926.9743850844
+current error: 2926.974385020155
+current error: 2926.974384942191
+current error: 2926.974384847027
+current error: 2926.974384728053
+0.0
+0.0
+55.665311
+_________________________________________
+Amsa
+MAE error!!!
+5.135806343771829
+0.0727276200316047
+(88, 4)
+(88,)
+4
+current error: 6036.040712750868
+current error: 6036.084580344566
+current error: 6036.1283084890365
+current error: 6036.171893506631
+current error: 6036.21533171344
+current error: 6036.258619366574
+current error: 6036.301752699701
+current error: 6036.344727935815
+current error: 6036.387541202489
+current error: 6036.430188678205
+current error: 6036.472666389065
+current error: 6036.514970489392
+current error: 6036.557096908649
+current error: 6036.599041677095
+current error: 6036.640800768918
+current error: 6036.6823700409495
+current error: 6036.723745427007
+current error: 6036.76492270581
+current error: 6036.805897700271
+0.0
+7e-06
+44.123649
+_________________________________________
+Yangjaecheon Stream
+MAE error!!!
+8.3207309672841
+0.13062166947589676
+(88, 4)
+(88,)
+4
+current error: 9136.120591546925
+current error: 9134.452802601925
+current error: 9132.771661408304
+current error: 9131.077148852228
+current error: 9129.197734871062
+current error: 9127.111665397919
+current error: 9124.794327528713
+current error: 9122.217822498209
+current error: 9119.350472404338
+current error: 9116.156246622606
+current error: 9112.594100277045
+current error: 9108.61721128452
+current error: 9104.172111278765
+current error: 9099.197704861183
+current error: 9093.624180631337
+current error: 9087.37184066728
+current error: 9080.349895135505
+current error: 9072.455321544254
+current error: 9063.571965391477
+4.5e-05
+0.00148
+44.877804
+_________________________________________
+Uicheon Stream
+MAE error!!!
+9.99641947928886
+0.15253791130236
+(88, 4)
+(88,)
+4
+current error: 6126.837083504561
+current error: 6126.845702744254
+current error: 6126.854311788425
+current error: 6126.86291067493
+current error: 6126.871499466706
+current error: 6126.880078201446
+current error: 6126.888646934098
+current error: 6126.897205696345
+current error: 6126.905754549121
+current error: 6126.914293520294
+current error: 6126.9228226544465
+current error: 6126.931341995717
+current error: 6126.9398515780795
+current error: 6126.948351439389
+current error: 6126.956841618319
+current error: 6126.9653221435565
+current error: 6126.973793060818
+current error: 6126.98225438882
+current error: 6126.99070617307
+2e-06
+4.4e-05
+40.777113
+_________________________________________
+Jeongneungcheon Stream
+MAE error!!!
+8.849561590652222
+0.13699223812523756
+(88, 4)
+(88,)
+4
+current error: 2.8855615294000864e-13

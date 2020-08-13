@@ -145,24 +145,59 @@ small_data2 = small_data2.drop('Name (E)', 1)
 small_data3 = myDf[myDf['Name (E)']=='Jeongneungcheon Stream']
 small_data3 = small_data3.drop('Name (E)', 1)
 
+
+small_data4 = myDf[myDf['Name (E)']=='Guui']
+small_data4 = small_data4.drop('Name (E)', 1)
+
+
+small_data5 = myDf[myDf['Name (E)']== 'Jamsil']
+small_data5 = small_data5.drop('Name (E)', 1)
+
+
+small_data6 = myDf[myDf['Name (E)']=='Amsa']
+small_data6 = small_data6.drop('Name (E)', 1)
+
+
+
+small_data7 = myDf[myDf['Name (E)']== 'Bogwang']
+small_data7 = small_data7.drop('Name (E)', 1)
+
+
+small_data8 = myDf[myDf['Name (E)']=='Gayang']
+small_data8 = small_data8.drop('Name (E)', 1)
+
 print(small_data2)
 
 myfinaldf = pd.merge(small_data,small_data2,left_on = 'YY/MM',right_on = 'YY/MM')
 myfinaldf = pd.merge(myfinaldf,small_data3,left_on = 'YY/MM',right_on = 'YY/MM')
+myfinaldf = pd.merge(myfinaldf,small_data4,left_on = 'YY/MM',right_on = 'YY/MM')
+myfinaldf = pd.merge(myfinaldf,small_data5,left_on = 'YY/MM',right_on = 'YY/MM')
+# myfinaldf = pd.merge(myfinaldf,small_data6,left_on = 'YY/MM',right_on = 'YY/MM')
+# myfinaldf = pd.merge(myfinaldf,small_data7,left_on = 'YY/MM',right_on = 'YY/MM')
+# myfinaldf = pd.merge(myfinaldf,small_data8,left_on = 'YY/MM',right_on = 'YY/MM')
 
 
 
-print(myfinaldf)
+# print(myfinaldf)
 
 
-# print(list(myfinaldf))
+print(list(myfinaldf))
+
+print(len(list(myfinaldf)))
+quit()
 
 
+# norm_cols = ['NH3-N(㎎/L)', 'NO3-N(㎎/L)', 'Dissolved Total P(㎎/L)','TSI(Chl-a)',
+# 'NH3-N(㎎/L)_x', 'NO3-N(㎎/L)_x', 'Dissolved Total P(㎎/L)_x','TSI(Chl-a)_x',
+# 'NH3-N(㎎/L)_y', 'NO3-N(㎎/L)_y', 'Dissolved Total P(㎎/L)_y','TSI(Chl-a)_y',
+# ]
 
-norm_cols = ['NH3-N(㎎/L)', 'NO3-N(㎎/L)', 'Dissolved Total P(㎎/L)','TSI(Chl-a)',
-'NH3-N(㎎/L)_x', 'NO3-N(㎎/L)_x', 'Dissolved Total P(㎎/L)_x','TSI(Chl-a)_x',
-'NH3-N(㎎/L)_y', 'NO3-N(㎎/L)_y', 'Dissolved Total P(㎎/L)_y','TSI(Chl-a)_y',
-]
+
+norm_cols = ['NH3-N(㎎/L)','NH3-N(㎎/L)_x', 'NO3-N(㎎/L)_y']
+
+
+# norm_cols = ['TSI(Chl-a)','TSI(Chl-a)_x','TSI(Chl-a)_y',]
+
 
 count = count + 1
 # print(small_data)

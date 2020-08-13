@@ -1,0 +1,697 @@
+(88, 4)
+(88,)
+4
+current error: 8320.796649037013
+current error: 8320.86553149512
+current error: 8320.93364028301
+current error: 8321.001022474098
+current error: 8321.067724290893
+current error: 8321.133791066966
+current error: 8321.199267215175
+current error: 8321.264196394022
+current error: 8321.32862113204
+current error: 8321.392583374709
+current error: 8321.456124128348
+current error: 8321.519283610525
+current error: 8321.5821011583
+current error: 8321.6446155329
+current error: 8321.706864410462
+current error: 8321.768884833316
+current error: 8321.830713160354
+current error: 8321.892384968893
+current error: 8321.953935032085
+-0.0
+-0.0
+45.461955
+_________________________________________
+Jungnangcheon Stream 2
+MAE error!!!
+8.866939414391332
+0.13033866550626683
+              precision    recall  f1-score   support
+
+           0       0.89      1.00      0.94        78
+           1       0.00      0.00      0.00        10
+
+    accuracy                           0.89        88
+   macro avg       0.44      0.50      0.47        88
+weighted avg       0.79      0.89      0.83        88
+
+(88, 4)
+(88,)
+4
+current error: 6138.129260255481
+current error: 6137.26330279431
+current error: 6136.390404766744
+current error: 6135.510571107844
+current error: 6134.534761406285
+current error: 6133.4517152832095
+current error: 6132.248709747248
+current error: 6130.911348176041
+current error: 6129.423321640092
+current error: 6127.766135821174
+current error: 6125.918804952033
+current error: 6123.857514009466
+current error: 6121.555254328456
+current error: 6118.981443608509
+current error: 6116.1015622706145
+current error: 6112.8768534626615
+current error: 6109.26416076226
+current error: 6105.216055301755
+current error: 6100.681461863719
+-0.0
+-0.0
+47.508958
+_________________________________________
+Jungnangcheon Stream 3
+MAE error!!!
+7.900882601265317
+0.11422247186343
+              precision    recall  f1-score   support
+
+           0       0.91      1.00      0.95        80
+           1       0.00      0.00      0.00         8
+
+    accuracy                           0.91        88
+   macro avg       0.45      0.50      0.48        88
+weighted avg       0.83      0.91      0.87        88
+
+(88, 4)
+(88,)
+4
+current error: 5418.265793013345
+current error: 5418.500773923763
+current error: 5418.730531931729
+current error: 5418.955171954598
+current error: 5419.1747970674205
+current error: 5419.389508362892
+current error: 5419.599405030502
+current error: 5419.804584376692
+current error: 5420.005141944297
+current error: 5420.201171340083
+current error: 5420.392764476464
+current error: 5420.580011495188
+current error: 5420.763000773408
+current error: 5420.941819032363
+current error: 5421.116551325399
+current error: 5421.287281022529
+current error: 5421.454089931426
+current error: 5421.617058218237
+current error: 5421.7762645783905
+0.0
+1e-05
+42.812604
+_________________________________________
+Jungnangcheon Stream 4
+MAE error!!!
+7.398803743314243
+0.1110264667364082
+              precision    recall  f1-score   support
+
+           0       0.97      1.00      0.98        85
+           1       0.00      0.00      0.00         3
+
+    accuracy                           0.97        88
+   macro avg       0.48      0.50      0.49        88
+weighted avg       0.93      0.97      0.95        88
+
+(88, 4)
+(88,)
+4
+current error: 5755.539019820735
+current error: 5755.70623520574
+current error: 5755.8730285788915
+current error: 5756.039398757277
+current error: 5756.205344693752
+current error: 5756.370865349531
+current error: 5756.535959644549
+current error: 5756.7006267082
+current error: 5756.864865520732
+current error: 5757.028675195977
+current error: 5757.1920548642265
+current error: 5757.35500371666
+current error: 5757.517520861255
+current error: 5757.679605557924
+current error: 5757.8412570827695
+current error: 5758.002474716595
+current error: 5758.163257781067
+current error: 5758.323605566648
+current error: 5758.483517481442
+3.2e-05
+0.000718
+37.857046
+_________________________________________
+Cheonggyecheon Stream 1
+MAE error!!!
+9.322136175833522
+0.15393223540015724
+              precision    recall  f1-score   support
+
+           0       0.99      1.00      0.99        87
+           1       0.00      0.00      0.00         1
+
+    accuracy                           0.99        88
+   macro avg       0.49      0.50      0.50        88
+weighted avg       0.98      0.99      0.98        88
+
+(88, 4)
+(88,)
+4
+current error: 4288.906865334652
+current error: 4288.516136710137
+current error: 4288.119200786019
+current error: 4287.715959795497
+current error: 4287.264997855533
+current error: 4286.759834578401
+current error: 4286.192928174105
+current error: 4285.555463060402
+current error: 4284.837086351887
+current error: 4284.025579532578
+current error: 4283.106447161025
+current error: 4282.06239754931
+current error: 4280.872684018494
+current error: 4279.512263850676
+current error: 4277.950717092559
+current error: 4276.150849391
+current error: 4274.066874435353
+current error: 4271.642038247239
+current error: 4268.805497838002
+0.0
+0.0
+42.201979
+_________________________________________
+Cheonggyecheon Stream 2
+MAE error!!!
+7.060100432104579
+0.11942589157272154
+              precision    recall  f1-score   support
+
+           0       1.00      1.00      1.00        88
+
+    accuracy                           1.00        88
+   macro avg       1.00      1.00      1.00        88
+weighted avg       1.00      1.00      1.00        88
+
+(88, 4)
+(88,)
+4
+current error: 6662.275773453258
+current error: 6662.787271672862
+current error: 6663.29862172679
+current error: 6663.8098095674895
+current error: 6664.320820116371
+current error: 6664.831637244578
+current error: 6665.342243803621
+current error: 6665.852621711215
+current error: 6666.362751916229
+current error: 6666.872614447499
+current error: 6667.382188470336
+current error: 6667.891452290049
+current error: 6668.400383401893
+current error: 6668.908958523926
+current error: 6669.417153626399
+current error: 6669.924943956441
+current error: 6670.432304097254
+current error: 6670.939207975271
+current error: 6671.445628923213
+0.0
+0.0
+43.371087
+_________________________________________
+Cheonggyecheon Stream 3
+MAE error!!!
+8.2687666409326
+0.13249105337177697
+              precision    recall  f1-score   support
+
+           0       0.95      1.00      0.98        84
+           1       0.00      0.00      0.00         4
+
+    accuracy                           0.95        88
+   macro avg       0.48      0.50      0.49        88
+weighted avg       0.91      0.95      0.93        88
+
+(88, 4)
+(88,)
+4
+current error: 3998.775102149995
+current error: 3998.775102097844
+current error: 3998.7751020919877
+current error: 3998.7751020753167
+current error: 3998.7751020855812
+current error: 3998.775102019241
+current error: 3998.775102029224
+current error: 3998.7751020543246
+current error: 3998.7751019825064
+current error: 3998.775101986934
+current error: 3998.7751019643556
+current error: 3998.7751019607967
+current error: 3998.775101934094
+current error: 3998.7751019062753
+current error: 3998.775101874421
+current error: 3998.7751018602953
+current error: 3998.775101855312
+current error: 3998.7751018388694
+current error: 3998.7751017820365
+0.0
+0.0
+43.827061
+_________________________________________
+Tancheon Stream 5
+MAE error!!!
+6.438121854263161
+0.10059879768528956
+              precision    recall  f1-score   support
+
+           0       0.98      1.00      0.99        86
+           1       0.00      0.00      0.00         2
+
+    accuracy                           0.98        88
+   macro avg       0.49      0.50      0.49        88
+weighted avg       0.96      0.98      0.97        88
+
+(88, 4)
+(88,)
+4
+current error: 6879.580219712763
+current error: 6879.880476400178
+current error: 6880.181684993045
+current error: 6880.483816852195
+current error: 6880.786842920563
+current error: 6881.090733684901
+current error: 6881.395459221451
+current error: 6881.700989218458
+current error: 6882.007292985013
+current error: 6882.31433952218
+current error: 6882.622097505112
+current error: 6882.93053536562
+current error: 6883.239621252486
+current error: 6883.549323141517
+current error: 6883.859608731103
+current error: 6884.170445637212
+current error: 6884.481801314336
+current error: 6884.793643087417
+current error: 6885.105938147649
+0.0
+0.0
+49.555522
+_________________________________________
+Hongjecheon Stream
+MAE error!!!
+9.045305796024458
+0.10817932159715428
+              precision    recall  f1-score   support
+
+           0       0.84      0.97      0.90        73
+           1       0.33      0.07      0.11        15
+
+    accuracy                           0.82        88
+   macro avg       0.58      0.52      0.50        88
+weighted avg       0.75      0.82      0.76        88
+
+(88, 4)
+(88,)
+4
+current error: 3854.7561157578643
+current error: 3854.756115693768
+current error: 3854.7561156741267
+current error: 3854.756115687289
+current error: 3854.7561156896513
+current error: 3854.7561156930037
+current error: 3854.7561157034047
+current error: 3854.7561156971365
+current error: 3854.756115785265
+current error: 3854.7561156926376
+current error: 3854.7561157496075
+current error: 3854.75611578433
+current error: 3854.7561157476957
+current error: 3854.7561157977543
+current error: 3854.7561158010712
+current error: 3854.756115721611
+current error: 3854.756115769307
+current error: 3854.756115728954
+current error: 3854.75611573268
+-0.0
+-0.0
+55.442488
+_________________________________________
+Guui
+MAE error!!!
+6.463717062613476
+0.09365534169777262
+              precision    recall  f1-score   support
+
+           0       0.80      0.99      0.89        71
+           1       0.00      0.00      0.00        17
+
+    accuracy                           0.80        88
+   macro avg       0.40      0.49      0.44        88
+weighted avg       0.65      0.80      0.71        88
+
+(88, 4)
+(88,)
+4
+current error: 2492.8485200649593
+current error: 2492.848516254855
+current error: 2492.848511974514
+current error: 2492.8485071570967
+current error: 2492.8485011469675
+current error: 2492.848493534197
+current error: 2492.8484837260585
+current error: 2492.848470834438
+current error: 2492.8484534919303
+current error: 2492.8484295173257
+current error: 2492.848395284419
+current error: 2492.8483444571275
+current error: 2492.848265336263
+current error: 2492.848134796939
+current error: 2492.8479033545473
+current error: 2492.8474542801023
+current error: 2492.8464758726886
+current error: 2492.8439769416736
+current error: 2492.8358610195774
+-0.0
+-0.0
+53.356212
+_________________________________________
+Ttukdo
+MAE error!!!
+4.619785080846858
+0.059908513121441735
+              precision    recall  f1-score   support
+
+           0       0.88      1.00      0.93        77
+           1       0.00      0.00      0.00        11
+
+    accuracy                           0.88        88
+   macro avg       0.44      0.50      0.47        88
+weighted avg       0.77      0.88      0.82        88
+
+(88, 4)
+(88,)
+4
+current error: 3296.359469179571
+current error: 3296.359475045282
+current error: 3296.359481086235
+current error: 3296.359487247688
+current error: 3296.3594934569956
+current error: 3296.359499614008
+current error: 3296.359505589474
+current error: 3296.359511215883
+current error: 3296.35951627496
+current error: 3296.35952049186
+current error: 3296.359523514405
+current error: 3296.3595249007617
+current error: 3296.359524093811
+current error: 3296.359520396395
+current error: 3296.3595129377713
+current error: 3296.359499085833
+current error: 3296.359474885216
+current error: 3296.3594337679447
+current error: 3296.3593645976134
+0.0
+0.0
+57.06559
+_________________________________________
+Bogwang
+MAE error!!!
+5.453310016804296
+0.07186376596916735
+              precision    recall  f1-score   support
+
+           0       0.84      1.00      0.91        74
+           1       0.00      0.00      0.00        14
+
+    accuracy                           0.84        88
+   macro avg       0.42      0.50      0.46        88
+weighted avg       0.71      0.84      0.77        88
+
+(88, 4)
+(88,)
+4
+current error: 5236.800432907323
+current error: 5236.800432923455
+current error: 5236.800432923427
+current error: 5236.80043290464
+current error: 5236.800432919428
+current error: 5236.800432910695
+current error: 5236.800432914792
+current error: 5236.800432917935
+current error: 5236.800432927932
+current error: 5236.8004329155165
+current error: 5236.8004329380465
+current error: 5236.80043292321
+current error: 5236.800432907672
+current error: 5236.800432904411
+current error: 5236.800432903268
+current error: 5236.800432937935
+current error: 5236.80043290757
+current error: 5236.800432916956
+current error: 5236.800432917447
+0.0
+0.0
+53.531481
+_________________________________________
+Yeongdeungpo
+MAE error!!!
+6.963698932354562
+0.08376878301882068
+              precision    recall  f1-score   support
+
+           0       0.70      0.89      0.78        53
+           1       0.71      0.43      0.54        35
+
+    accuracy                           0.70        88
+   macro avg       0.71      0.66      0.66        88
+weighted avg       0.71      0.70      0.68        88
+
+(88, 4)
+(88,)
+4
+current error: 2719.4208229247124
+current error: 2719.4207720365794
+current error: 2719.4207195177837
+current error: 2719.4206653089204
+current error: 2719.4206036539244
+current error: 2719.420533283647
+current error: 2719.4204526518924
+current error: 2719.4203598607673
+current error: 2719.42025256348
+current error: 2719.4201278231776
+current error: 2719.419981934003
+current error: 2719.4198101710363
+current error: 2719.419606427738
+current error: 2719.4193627291475
+current error: 2719.4190685015883
+current error: 2719.418709519494
+current error: 2719.4182663357406
+current error: 2719.417711885646
+current error: 2719.4170077607932
+0.0
+0.0
+56.814974
+_________________________________________
+Jamsil
+MAE error!!!
+4.447631123537758
+0.05664689707110435
+              precision    recall  f1-score   support
+
+           0       0.80      1.00      0.89        70
+           1       0.00      0.00      0.00        18
+
+    accuracy                           0.80        88
+   macro avg       0.40      0.50      0.44        88
+weighted avg       0.63      0.80      0.70        88
+
+(88, 4)
+(88,)
+4
+current error: 1332.3287353061103
+current error: 1332.328735574884
+current error: 1332.3287358106575
+current error: 1332.3287360581787
+current error: 1332.328736270612
+current error: 1332.3287364999596
+current error: 1332.3287367117505
+current error: 1332.3287369018835
+current error: 1332.3287371000463
+current error: 1332.3287372770214
+current error: 1332.328737448428
+current error: 1332.32873761177
+current error: 1332.3287377831814
+current error: 1332.3287379405424
+current error: 1332.3287380978
+current error: 1332.3287382386975
+current error: 1332.3287383801746
+current error: 1332.3287385243116
+current error: 1332.3287386424358
+0.0
+0.0
+49.741396
+_________________________________________
+Mangwolcheon Stream
+MAE error!!!
+3.511349420888991
+0.05495069516258202
+              precision    recall  f1-score   support
+
+           0       0.97      1.00      0.98        85
+           1       0.00      0.00      0.00         3
+
+    accuracy                           0.97        88
+   macro avg       0.48      0.50      0.49        88
+weighted avg       0.93      0.97      0.95        88
+
+(48, 4)
+(48,)
+4
+current error: 0.19044384417775134
+current error: 0.19044471328481652
+current error: 0.19044549471796254
+current error: 0.19044618519924478
+current error: 0.19044678149352312
+current error: 0.19044728042885212
+current error: 0.19044767891730174
+current error: 0.19044797397588484
+current error: 0.19044816274722112
+current error: 0.19044824251957576
+current error: 0.190448210745915
+current error: 0.1904480650616316
+current error: 0.19044780330063277
+current error: 0.19044737892998165
+current error: 0.1904467443371619
+current error: 0.1904458401868777
+current error: 0.19044459292977783
+current error: 0.190442911957506
+current error: 0.19044068645021148
+0.000219
+0.001439
+0.143134
+_________________________________________
+Gamicheon Stream
+MAE error!!!
+0.07610713485822325
+0.19975625947040224
+              precision    recall  f1-score   support
+
+           0       1.00      1.00      1.00        48
+
+    accuracy                           1.00        48
+   macro avg       1.00      1.00      1.00        48
+weighted avg       1.00      1.00      1.00        48
+
+(48, 4)
+(48,)
+4
+current error: 0.11194804510390775
+current error: 0.1119480358966526
+current error: 0.11194802665777676
+current error: 0.11194801738789126
+current error: 0.11194800715308104
+current error: 0.11194799584973715
+current error: 0.11194798336268987
+current error: 0.11194796956389234
+current error: 0.1119479543109883
+current error: 0.11194793744574062
+current error: 0.11194791879234609
+current error: 0.11194789815563425
+current error: 0.11194787531920279
+current error: 0.1119478500435214
+current error: 0.11194782206410066
+current error: 0.11194779108984898
+current error: 0.11194775680178973
+current error: 0.1119477188523954
+current error: 0.11194767686587298
+0.000212
+5e-05
+0.136293
+_________________________________________
+Mokgamcheon Stream-1
+MAE error!!!
+0.04304880321062446
+0.15158029299515655
+              precision    recall  f1-score   support
+
+           0       1.00      1.00      1.00        48
+
+    accuracy                           1.00        48
+   macro avg       1.00      1.00      1.00        48
+weighted avg       1.00      1.00      1.00        48
+
+(48, 4)
+(48,)
+4
+current error: 0.09877075068431981
+current error: 0.09877058681479631
+current error: 0.09877042237939584
+current error: 0.09877025737173936
+current error: 0.09877007522888098
+current error: 0.09876987409462439
+current error: 0.09876965189403272
+current error: 0.0987694063035471
+current error: 0.09876913471608831
+current error: 0.09876883420012089
+current error: 0.0987685014513727
+current error: 0.09876813273564655
+current error: 0.0987677238207258
+current error: 0.09876726989492837
+current error: 0.09876676546925844
+current error: 0.09876620425937492
+current error: 0.09876557904273067
+current error: 0.09876488148516699
+current error: 0.09876410193001661
+-0.000344
+0.000243
+0.098055
+_________________________________________
+Ahnyangcheon Stream 3-2
+MAE error!!!
+0.037567295819086494
+0.137609142194456
+              precision    recall  f1-score   support
+
+           0       1.00      1.00      1.00        48
+
+    accuracy                           1.00        48
+   macro avg       1.00      1.00      1.00        48
+weighted avg       1.00      1.00      1.00        48
+
+(48, 4)
+(48,)
+4
+current error: 0.19669877593128557
+current error: 0.1967019842387249
+current error: 0.19670522379682456
+current error: 0.19670849474347257
+current error: 0.19671179717496645
+current error: 0.19671513113956618
+current error: 0.19671849663013105
+current error: 0.196721893575691
+current error: 0.19672532183178237
+current error: 0.19672878116935524
+current error: 0.1967322712620068
+current error: 0.19673579167126565
+current error: 0.19673934182959069
+current error: 0.19674292102068092
+current error: 0.1967465283566154
+current error: 0.1967501627512402
+current error: 0.19675382288909782
+current error: 0.19675750718902718
+current error: 0.19676121376139552
+-0.000524
+0.00035
+0.190602
+_________________________________________
+Choicheon Stream
+MAE error!!!
+0.08921480464347281
+0.21759708449627516
+              precision    recall  f1-score   support
+
+           0       1.00      1.00      1.00        48
+
+    accuracy                           1.00        48
+   macro avg       1.00      1.00      1.00        48
+weighted avg       1.00      1.00      1.00        48
+

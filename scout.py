@@ -43,6 +43,10 @@ def build_LSTM_model(inputs, output_size, neurons, activ_func="linear",
 	dropout=0.25, loss="mae", optimizer="adam"):
 	model = Sequential()
 
+	# model.add(SimpleRNN(neurons, input_shape=(inputs.shape[1], inputs.shape[2])))
+	# model.add(Dropout(dropout))
+	# model.add(Dense(units=3))
+
 	model.add(LSTM(neurons, input_shape=(inputs.shape[1], inputs.shape[2])))
 	model.add(Dropout(dropout))
 	model.add(Dense(units=output_size))
@@ -99,11 +103,13 @@ dataCol = ['Name (E)' ,'YY/MM','NH3-N(㎎/L)', 'NO3-N(㎎/L)', 'PO4-P(㎎/L)',
  'T-N(㎎/L)','T-P(㎎/L)', 'Dissolved Total N(㎎/L)','Dissolved Total P(㎎/L)',
   'Hydrogen ion conc.','DO (㎎/L)', 'TSI(Chl-a)']
 
-
+dataCol2 = ['Name (E)' ,'YY/MM','NH3-N(㎎/L)', 'NO3-N(㎎/L)', 'PO4-P(㎎/L)',
+ 'T-N(㎎/L)','T-P(㎎/L)', 'Dissolved Total N(㎎/L)','Dissolved Total P(㎎/L)',
+  'Hydrogen ion conc.','DO (㎎/L)']
 # dataCol = ['Name (E)' ,'YY/MM','Dissolved Total N(㎎/L)', 'NH3-N(㎎/L)', 'NO3-N(㎎/L)', 'Dissolved Total P(㎎/L)','Conductivity(µS/㎝)','TSI(Chl-a)']
 
 
-MasterDataframe = pd.read_excel('predata.xls')
+MasterDataframe = pd.read_excel('predata2.xls')
 MasterDataframe.rename(columns=MasterDataframe.iloc[0])
 #Get all subset of the column
 ColumnList = list(MasterDataframe)
@@ -124,10 +130,9 @@ df2 = MasterDataframe2[dataCol]
 df = pd.concat([df1,df2])
 
 
-correlation = (df.corr())
+# print(mytestpd)
 
-# correlation.to_csv("output.csv")
-
+# quit()
 # print(correlation)
 # correlation = correlation.values
 
@@ -188,14 +193,27 @@ count = 0
 dictrictMSE = []
 dictrictName =  []
 
+finalArr = []
+finalArr2 = []
+
 for dictrict in dictrictArr:
-	try:
+	# try:
 		print(dictrict)
 		count = count + 1
 		small_data = df[df['Name (E)']==dictrict]
 		small_data = small_data.drop('Name (E)', 1)
 		timeframe = small_data['YY/MM'].values
+		small_data = small_data.drop('YY/MM', 1)
+		small_data = small_data.values
+		print(small_data)
+		print(small_data.shape)
+		np.savetxt(str(dictrict)+".txt",small_data,delimiter=' ' ,fmt='%1.4e') 
+
+		# training_set = training_set.drop('YY/MM', 1)
 		# print(list(small_data))
+		# small_data.to_csv("fdata/"+dictrict+".csv",index=False)
+		quit()
+		continue
 		split_date = "2018/09"
 		training_set, test_set = small_data[small_data['YY/MM']<split_date], small_data[small_data['YY/MM']>=split_date]
 
@@ -240,13 +258,37 @@ for dictrict in dictrictArr:
 		# LSTM_last_input.shape = (1,10,4)
 
 		np.random.seed(202)
+		# print(training_set['TSI(Chl-a)'][window_len:].values)
+		# print("______________________")
+
 		LSTM_training_outputs = training_set['TSI(Chl-a)'][window_len:].values
 
 		# print("213123")
 		# print(LSTM_training_inputs.shape)
 		# print(LSTM_training_outputs.shape)
-		# print(training_input)
+		# # print(training_input)
 		# print(LSTM_training_inputs)
+		# print(LSTM_training_outputs)
+		dataInput = []
+		for i in range(0, len(LSTM_training_inputs)):
+			tem = list(LSTM_training_inputs[i][0])
+			# print(tem)
+			tem.append(LSTM_training_outputs[i])
+			# print(LSTM_training_outputs[i])
+			dataInput.append(tem)
+
+		# print(dataInput)
+		mydf = pd.DataFrame(dataInput,columns =['NH3-N(㎎/L)', 'NO3-N(㎎/L)', 'PO4-P(㎎/L)',
+ 'T-N(㎎/L)','T-P(㎎/L)', 'Dissolved Total N(㎎/L)','Dissolved Total P(㎎/L)',
+  'Hydrogen ion conc.','DO (㎎/L)', 'TSI(Chl-a)','Predict'])
+
+		corr = mydf.corr()
+		corr.to_csv("cor/"+dictrict+".csv")
+		# print(len(LSTM_test_inputs))
+			
+		# print(len(LSTM_test_outputs))
+		# print("________________")
+		# quit()
 		if count > 1:
 			training_input  = np.concatenate((training_input, LSTM_training_inputs), axis=0) 
 			training_output = np.concatenate((training_output, LSTM_training_outputs), axis=0) 
@@ -316,12 +358,51 @@ for dictrict in dictrictArr:
 
 		# dictrictName.append(dictrict)
 		# dictrictMSE.append(mseValue)
+		# finalArr.append(final_predict[-2:])
+		# finalArr2.append( test_set['TSI(Chl-a)'][window_len:].values[-2:])
 
 		# plt.savefig("LSTM-tiny/"+ dictrict +'.png', dpi=100)
 
-	except:
-		continue
+	# except:
+	# 	continue
+# y_pred = []
+# print("final predict")
+# for i in range(0, len(dictrictName)):
+# 	if finalArr[i][0] > 60 or finalArr[i][1] >60:
+# 		y_pred.append(1)
+# 	else:
+# 		y_pred.append(0)
+# 		# grade = "Eutrophy"
+# 		# if finalArr[i][0] > 70 or finalArr[i][1] >70:
+# 		# 	grade = "Hypereutrophy"
+# 		# if finalArr[i][0] > 80 or finalArr[i][1] >80:
+# 		# 	grade = "Algae bloom"
+# 		# print("tram "+ dictrictName[i]+ " co kha nang no hoa")
+# 		# print("Grade:" + grade) 
 
+# y_true  = []
+# print("final predict")
+# for i in range(0, len(dictrictName)):
+# 	if finalArr2[i][0] > 60 or finalArr2[i][1] >60:
+# 		y_true.append(1)
+# 	else:
+# 		y_true.append(0)
+# 		# grade = "Eutrophy"
+# 		# if finalArr2[i][0] > 70 or finalArr2[i][1] >70:
+# 		# 	grade = "Hypereutrophy"
+# 		# if finalArr2[i][0] > 80 or finalArr2[i][1] >80:
+# 		# 	grade = "Algae bloom"
+# 		# print("tram "+ dictrictName[i]+ " co kha nang no hoa")
+# 		# print("Grade:" + grade) 
+
+# print(y_true)
+# print(len(y_true))
+# print(y_pred)
+# print(len(y_pred))
+
+# from sklearn.metrics import classification_report
+# print(classification_report(y_true, y_pred))
+# quit()
 # for i in range(0, len(dictrictName)):
 # 	print(dictrictName[i] + "||" + str(dictrictMSE[i]) + "|||")
 
@@ -332,10 +413,23 @@ for dictrict in dictrictArr:
 # quit()
 # print(len(training_input))
 # print(len(training_output))
+# mytestpd = pd.DataFrame(list(zip(training_input, training_output)), 
+#                columns =['NH3-N(㎎/L)', 'NO3-N(㎎/L)', 'PO4-P(㎎/L)',
+# 			 'T-N(㎎/L)','T-P(㎎/L)', 'Dissolved Total N(㎎/L)','Dissolved Total P(㎎/L)',
+# 			  'Hydrogen ion conc.','DO (㎎/L)', 'TSI(Chl-a)','predict']) 
+
+# print(mytestpd)
+
+
+# mytestpd.to_csv("cor.csv")
+
+
+
+
 # quit()
-# my_model = build_LSTM_model(training_input, output_size=1, neurons = 100)
-# my_model.fit(training_input, training_output, 
-# 	epochs=50, batch_size=1, verbose=1, shuffle=True)
+my_model = build_RNN_model(training_input, output_size=1, neurons = 100)
+my_model.fit(training_input, training_output, 
+	epochs=50, batch_size=1, verbose=1, shuffle=True)
 
 # model_json =  my_model.to_json()
 # model_output = "model/rnn_model.json"
@@ -344,20 +438,21 @@ for dictrict in dictrictArr:
 #         json_file.write(model_json)
 #         # serialize weights to HDF5
 #         my_model.save_weights(weight_output)
-
-model_output = 'model/rnn_model.json'
-weight_output = 'model/rnn_model.h5'
-json_file = open(model_output, 'r')
-loaded_model_json = json_file.read()
-json_file.close()
-my_model = model_from_json(loaded_model_json)
-my_model.load_weights(weight_output)
+# quit()
+# model_output = 'model/rnn_model.json'
+# weight_output = 'model/rnn_model.h5'
+# json_file = open(model_output, 'r')
+# loaded_model_json = json_file.read()
+# json_file.close()
+# my_model = model_from_json(loaded_model_json)
+# my_model.load_weights(weight_output)
 
 # print("_________________________")
 
 # print(len(dictrictArr))
 # print(len(myDf))
 finalArr = []
+finalArr2 = []
 for dictrict in dictrictArr:
 	try:
 		count = count + 1
@@ -367,6 +462,8 @@ for dictrict in dictrictArr:
 		timeframe = small_data['YY/MM'].values
 		# print(small_data)
 		split_date = "2016/04"
+
+
 		training_set, test_set = small_data[small_data['YY/MM']<split_date], small_data[small_data['YY/MM']>=split_date]
 		print(len(test_set))
 		# continue
@@ -403,8 +500,9 @@ for dictrict in dictrictArr:
 		LSTM_test_inputs = np.array(LSTM_test_inputs)
 		# print(LSTM_test_inputs)
 
-
+		print(LSTM_test_inputs)
 		predict =  my_model.predict(LSTM_test_inputs)
+		print(predict)
 
 		# print(len(predict))
 
@@ -463,6 +561,7 @@ for dictrict in dictrictArr:
 		# ax1.set_ylim(top=100)
 		# plt.show()
 		finalArr.append(final_predict[-2:])
+		finalArr2.append(test_set['TSI(Chl-a)'][window_len:].values[-2:])
 		dictrictName.append(dictrict)
 		dictrictMSE.append(mseValue)
 
@@ -477,7 +576,7 @@ for i in range(0, len(dictrictName)):
 
 df = pd.DataFrame(list(zip(dictrictName, dictrictMSE)), 
                columns =['Name', 'val']) 
-df.to_csv("tiny.csv")
+df.to_csv("rnn.csv")
 
 # 30-40	0,95-2,6	Hypolimia: 
 # 40-50	2,6-7,3	Alpha- Mesotrophy
@@ -486,13 +585,40 @@ df.to_csv("tiny.csv")
 # 70-80	56-155	Hypereutrophy
 # >80	>155	Algae bloom
 
+y_pred = []
 print("final predict")
 for i in range(0, len(dictrictName)):
 	if finalArr[i][0] > 60 or finalArr[i][1] >60:
-		grade = "Eutrophy"
-		if finalArr[i][0] > 70 or finalArr[i][1] >70:
-			grade = "Hypereutrophy"
-		if finalArr[i][0] > 80 or finalArr[i][1] >80:
-			grade = "Algae bloom"
-		print("tram "+ dictrictName[i]+ " co kha nang no hoa")
-		print("Grade:" + grade) 
+		y_pred.append(1)
+	else:
+		y_pred.append(0)
+		# grade = "Eutrophy"
+		# if finalArr[i][0] > 70 or finalArr[i][1] >70:
+		# 	grade = "Hypereutrophy"
+		# if finalArr[i][0] > 80 or finalArr[i][1] >80:
+		# 	grade = "Algae bloom"
+		# print("tram "+ dictrictName[i]+ " co kha nang no hoa")
+		# print("Grade:" + grade) 
+
+y_true  = []
+print("final predict")
+for i in range(0, len(dictrictName)):
+	if finalArr2[i][0] > 60 or finalArr2[i][1] >60:
+		y_true.append(1)
+	else:
+		y_true.append(0)
+		# grade = "Eutrophy"
+		# if finalArr2[i][0] > 70 or finalArr2[i][1] >70:
+		# 	grade = "Hypereutrophy"
+		# if finalArr2[i][0] > 80 or finalArr2[i][1] >80:
+		# 	grade = "Algae bloom"
+		# print("tram "+ dictrictName[i]+ " co kha nang no hoa")
+		# print("Grade:" + grade) 
+
+print(y_true)
+print(len(y_true))
+print(y_pred)
+print(len(y_pred))
+
+from sklearn.metrics import classification_report
+print(classification_report(y_true, y_pred))

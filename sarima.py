@@ -119,6 +119,7 @@ for dictrict in dictrictArr:
 
 
 	timeframe = small_data['YY/MM'].values
+
 	output =  small_data['TSI(Chl-a)']
 
 	training_set = training_set.drop('YY/MM', 1)
@@ -164,7 +165,7 @@ for dictrict in dictrictArr:
 	ax1.annotate(ano, 
          xy=(0.75, 0.9),  xycoords='axes fraction',
         xytext=(0.75, 0.9), textcoords='axes fraction')
-	ax1.set_title("Dự đoán nổng độ tảo tại trạm "+dictrict,fontsize=13)
+	ax1.set_title("Chi-a Prediction at "+dictrict,fontsize=13)
 	ax1.legend()
 	fig.autofmt_xdate()
 	ax1.set_ylim(bottom=0)

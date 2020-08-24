@@ -31,61 +31,113 @@ from mpl_toolkits.axes_grid1.inset_locator import zoomed_inset_axes
 from mpl_toolkits.axes_grid1.inset_locator import mark_inset
 from sklearn.linear_model import LinearRegression
 from matplotlib.dates import (YEARLY, DateFormatter,
-	rrulewrapper, RRuleLocator, drange)
+    rrulewrapper, RRuleLocator, drange)
 #load excel dataframe
 
+
+from keras.engine.topology import Layer
+
+from lib.DefuzzyLayer import DefuzzyLayer
+
 TRAINING_FLAG = 0
+
+class FuzzyLayer(Layer):
+
+    def __init__(self, 
+                 output_dim, 
+                 initializer_centers=None,
+                 initializer_sigmas=None, 
+                 **kwargs):
+        if 'input_shape' not in kwargs and 'input_dim' in kwargs:
+            kwargs['input_shape'] = (kwargs.pop('input_dim'),)
+        self.output_dim = output_dim
+        self.initializer_centers = initializer_centers
+        self.initializer_sigmas = initializer_sigmas
+        super(FuzzyLayer, self).__init__(**kwargs)
+
+    def build(self, input_shape):
+        self.input_dimensions = list(input_shape)[:-1:-1]
+        self.c = self.add_weight(name='c', 
+                                 shape=(input_shape[-1], self.output_dim),
+                                 initializer= self.initializer_centers if self.initializer_centers is not None else 'uniform',
+                                 trainable=True)
+        self.a = self.add_weight(name='a', 
+                                 shape=(input_shape[-1], self.output_dim),
+                                 initializer=self.initializer_sigmas if self.initializer_sigmas is not None else 'ones',
+                                 trainable=True)
+        super(FuzzyLayer, self).build(input_shape)  
+
+    def call(self, x):
+        
+        aligned_x = K.repeat_elements(K.expand_dims(x, axis = -1), self.output_dim, -1)
+        aligned_c = self.c
+        aligned_a = self.a
+        for dim in self.input_dimensions:
+            aligned_c = K.repeat_elements(K.expand_dims(aligned_c, 0), dim, 0)
+            aligned_a = K.repeat_elements(K.expand_dims(aligned_a, 0), dim, 0)
+
+        xc = K.exp(-K.sum(K.square((aligned_x - aligned_c) / (2 * aligned_a)), axis=-2, keepdims=False))
+        #sums = K.sum(xc,axis=-1,keepdims=True)
+        #less = K.ones_like(sums) * K.epsilon()
+        return xc# xc / K.maximum(sums, less)
+        
+    def compute_output_shape(self, input_shape):
+        return tuple(input_shape[:-1]) + (self.output_dim,)
 
 
 
 
 def build_LSTM_model(inputs, output_size, neurons, activ_func="linear",
-	dropout=0.25, loss="mae", optimizer="adam"):
-	model = Sequential()
+    dropout=0.25, loss="mae", optimizer="adam"):
+    model = Sequential()
 
-	# model.add(SimpleRNN(neurons, input_shape=(inputs.shape[1], inputs.shape[2])))
-	# model.add(Dropout(dropout))
-	# model.add(Dense(units=3))
+    # model.add(SimpleRNN(neurons, input_shape=(inputs.shape[1], inputs.shape[2])))
+    # model.add(Dropout(dropout))
+    # model.add(Dense(units=3))
 
-	model.add(LSTM(neurons, input_shape=(inputs.shape[1], inputs.shape[2])))
-	model.add(Dropout(dropout))
-	model.add(Dense(units=output_size))
-	model.add(Activation(activ_func))
+    # model.add(FuzzyLayer(40, input_shape=(5, 1)))
+    model.add(LSTM(neurons, input_shape=(inputs.shape[1], inputs.shape[2])))
+    # model.add(DefuzzyLayer(1))
+    model.add(Dropout(dropout))
+    model.add(Dense(units=output_size))
+    model.add(Activation(activ_func))
 
-	model.compile(loss=loss, optimizer=optimizer)
-	return model
+    model.compile(loss=loss, optimizer=optimizer)
+    return model
 
 def build_RNN_model(inputs, output_size, neurons, activ_func="linear",
-	dropout=0.25, loss="mae", optimizer="adam"):
-	model = Sequential()
+    dropout=0.25, loss="mae", optimizer="adam"):
+    model = Sequential()
+    # model.add(FuzzyLayer(40, input_shape=(5, 1)))
 
-	model.add(SimpleRNN(neurons, input_shape=(inputs.shape[1], inputs.shape[2])))
-	model.add(Dropout(dropout))
-	model.add(Dense(units=output_size))
-	model.add(Activation(activ_func))
-	model.compile(loss=loss, optimizer=optimizer)
-	return model
+    model.add(SimpleRNN(neurons, input_shape=(inputs.shape[1], inputs.shape[2])))
+    # model.add(DefuzzyLayer(1))
+    model.add(Dropout(dropout))
+    model.add(Dense(units=output_size))
+    model.add(Activation(activ_func))
+    model.compile(loss=loss, optimizer=optimizer)
+    return model
 
 
 def build_GRU_model(inputs, output_size, neurons, activ_func="linear",
-	dropout=0.25, loss="mae", optimizer="adam"):
-	model = Sequential()
+    dropout=0.25, loss="mae", optimizer="adam"):
+    model = Sequential()
 
-	model.add(GRU(neurons, input_shape=(inputs.shape[1], inputs.shape[2])))
-	model.add(Dropout(dropout))
-	model.add(Dense(units=output_size))
-	model.add(Activation(activ_func))
+    model.add(GRU(neurons, input_shape=(inputs.shape[1], inputs.shape[2])))
+    model.add(Dropout(dropout))
+    model.add(Dense(units=output_size))
+    model.add(Activation(activ_func))
 
-	model.compile(loss=loss, optimizer=optimizer)
-	return model
+    model.compile(loss=loss, optimizer=optimizer)
+    return model
 
 
 
 # =9.81*LN(AH13)+30.6
 # =IF(BT2<30, "Clean water", IF(AND(BT2>=30, BT2<40), 
 # "Hypolimia", IF(AND(BT2>=40,BT2<50), "Mesotrophic", 
-# 	IF(AND(BT2>=50, BT2<70), "Eutrophic", 
-# 		IF(BT2>70,"Hypertrophic")))))
+#   IF(AND(BT2>=50, BT2<70), "Eutrophic", 
+#       IF(BT2>70,"Hypertrophic")))))
 
 # dataCol = ['Name (E)' ,'YY/MM','Dissolved Total N(㎎/L)', 'NH3-N(㎎/L)', 'NO3-N(㎎/L)', 'Dissolved Total P(㎎/L)','Conductivity(µS/㎝)','TSI(Chl-a)', 'Grade.3' ]
 
@@ -106,6 +158,11 @@ dataCol = ['Name (E)' ,'YY/MM','NH3-N(㎎/L)', 'NO3-N(㎎/L)', 'PO4-P(㎎/L)',
 dataCol2 = ['Name (E)' ,'YY/MM','NH3-N(㎎/L)', 'NO3-N(㎎/L)', 'PO4-P(㎎/L)',
  'T-N(㎎/L)','T-P(㎎/L)', 'Dissolved Total N(㎎/L)','Dissolved Total P(㎎/L)',
   'Hydrogen ion conc.','DO (㎎/L)']
+
+dataCol = ['Name (E)' ,'YY/MM','NH3-N(㎎/L)', 'NO3-N(㎎/L)', 'PO4-P(㎎/L)',
+ 'T-N(㎎/L)','T-P(㎎/L)', 'Dissolved Total N(㎎/L)','Dissolved Total P(㎎/L)',
+  'Hydrogen ion conc.','DO (㎎/L)','BOD(㎎/L)',"I(pH)","K-CWQI","Temp.(℃)", 'TSI(Chl-a)']
+
 # dataCol = ['Name (E)' ,'YY/MM','Dissolved Total N(㎎/L)', 'NH3-N(㎎/L)', 'NO3-N(㎎/L)', 'Dissolved Total P(㎎/L)','Conductivity(µS/㎝)','TSI(Chl-a)']
 
 
@@ -114,6 +171,7 @@ MasterDataframe.rename(columns=MasterDataframe.iloc[0])
 #Get all subset of the column
 ColumnList = list(MasterDataframe)
 # print(ColumnList)
+# quit()
 
 
 # print(MasterDataframe.head())
@@ -130,7 +188,7 @@ df2 = MasterDataframe2[dataCol]
 df = pd.concat([df1,df2])
 
 
-# print(mytestpd)
+# print(df)
 
 # quit()
 # print(correlation)
@@ -141,11 +199,11 @@ df = pd.concat([df1,df2])
 # # print(correlation[0][0])
 # print(len(dataCol))
 # for i in range(0,len(correlation)-1):
-# 	for j in range(0,len(correlation)-1):
-# 		if i==j:
-# 			continue
-# 		if correlation[i][j] > 0:
-# 			print(dataCol[i] + "<--->" + dataCol [j] +" ||| correlation: "+str(correlation[i][j]))
+#   for j in range(0,len(correlation)-1):
+#       if i==j:
+#           continue
+#       if correlation[i][j] > 0:
+#           print(dataCol[i] + "<--->" + dataCol [j] +" ||| correlation: "+str(correlation[i][j]))
 
 # quit()
 
@@ -157,19 +215,19 @@ df = pd.concat([df1,df2])
 
 
 for col in dataCol:
-	try:
-		# print(col)
-		median = df[col].median()
-		# print(median)
-		# print("_____________________+")
-		df[col].fillna(median, inplace=True)
-	except:
-		continue
-		# print(col)
-		# print("it here")
-		# df[col].fillna("Mesotrophic", inplace=True)
+    try:
+        # print(col)
+        median = df[col].median()
+        # print(median)
+        # print("_____________________+")
+        df[col].fillna(median, inplace=True)
+    except:
+        continue
+        # print(col)
+        # print("it here")
+        # df[col].fillna("Mesotrophic", inplace=True)
 
-window_len = 5
+window_len = 10
 
 myDf = df[dataCol]
 myDf = myDf.sort_values(by='YY/MM')
@@ -185,9 +243,12 @@ test_output = np.empty((1,))
 # print(training_input)
 # print(test_input)
 # quit()
-norm_cols = ['NH3-N(㎎/L)', 'NO3-N(㎎/L)', 'PO4-P(㎎/L)',
- 'T-N(㎎/L)','T-P(㎎/L)', 'Dissolved Total N(㎎/L)','Dissolved Total P(㎎/L)',
-  'Hydrogen ion conc.','DO (㎎/L)', 'TSI(Chl-a)']
+norm_cols = ['Dissolved Total N(㎎/L)','Dissolved Total P(㎎/L)',
+  'Hydrogen ion conc.','DO (㎎/L)','BOD(㎎/L)',"I(pH)", 'TSI(Chl-a)']
+
+# norm_cols = ['Dissolved Total N(㎎/L)','Dissolved Total P(㎎/L)',
+# 'Hydrogen ion conc.','DO (㎎/L)','BOD(㎎/L)',"I(pH)","K-CWQI","Temp.(℃)", 'TSI(Chl-a)']
+
 count = 0
 
 dictrictMSE = []
@@ -197,203 +258,203 @@ finalArr = []
 finalArr2 = []
 
 for dictrict in dictrictArr:
-	# try:
-		print(dictrict)
-		count = count + 1
-		small_data = df[df['Name (E)']==dictrict]
-		small_data = small_data.drop('Name (E)', 1)
-		timeframe = small_data['YY/MM'].values
-		small_data = small_data.drop('YY/MM', 1)
-		small_data = small_data.values
-		print(small_data)
-		print(small_data.shape)
-		np.savetxt(str(dictrict)+".txt",small_data,delimiter=' ' ,fmt='%1.4e') 
+    try:
+        print(dictrict)
+        count = count + 1
+        small_data = df[df['Name (E)']==dictrict]
+        small_data = small_data.drop('Name (E)', 1)
+        print(len(small_data))
+        timeframe = small_data['YY/MM'].values
+        # small_data = small_data.drop('YY/MM', 1)
+        # small_data = small_data.values
+        # print(small_data)
+        # print(small_data.shape)
+        # np.savetxt(str(dictrict)+".txt",small_data,delimiter=' ' ,fmt='%1.4e') 
 
-		# training_set = training_set.drop('YY/MM', 1)
-		# print(list(small_data))
-		# small_data.to_csv("fdata/"+dictrict+".csv",index=False)
-		quit()
-		continue
-		split_date = "2018/09"
-		training_set, test_set = small_data[small_data['YY/MM']<split_date], small_data[small_data['YY/MM']>=split_date]
+        # training_set = training_set.drop('YY/MM', 1)
+        # print(list(small_data))
+        # small_data.to_csv("fdata/"+dictrict+".csv",index=False)
+        # quit()
+        # continue
+        split_date = "2018/09"
+        training_set, test_set = small_data[small_data['YY/MM']<split_date], small_data[small_data['YY/MM']>=split_date]
 
-		training_set = training_set.drop('YY/MM', 1)
-		test_set = test_set.drop('YY/MM', 1)
-		training_set=training_set.astype('float')
+        training_set = training_set.drop('YY/MM', 1)
+        test_set = test_set.drop('YY/MM', 1)
+        training_set=training_set.astype('float')
 
-		test_set=test_set.astype('float')
+        test_set=test_set.astype('float')
 
-		# print(training_set)
-		# print(test_set)
+        # print(training_set)
+        # print(test_set)
 
-		LSTM_training_inputs = []
-		for i in range(len(training_set)-window_len):
-			temp_set = training_set[i:(i+window_len)].copy()
-			for col in norm_cols:
-				temp_set.loc[:, col] = temp_set[col]
-				# print(temp_set)
-				# LSTM_training_inputs = []
-			LSTM_training_inputs.append(temp_set)
+        LSTM_training_inputs = []
+        for i in range(len(training_set)-window_len):
+            temp_set = training_set[i:(i+window_len)].copy()
+            for col in norm_cols:
+                temp_set.loc[:, col] = temp_set[col]
+                # print(temp_set)
+                # LSTM_training_inputs = []
+            LSTM_training_inputs.append(temp_set)
 
 
-		LSTM_test_inputs = []
-		for i in range(len(test_set)-window_len):
-			temp_set = test_set[i:(i+window_len)].copy()
-			for col in norm_cols:
-				temp_set.loc[:, col] = temp_set[col]
-		# print(temp_set)
-			LSTM_test_inputs.append(temp_set)
-		
-		LSTM_test_outputs = test_set['TSI(Chl-a)'][window_len:].values
+        LSTM_test_inputs = []
+        for i in range(len(test_set)-window_len):
+            temp_set = test_set[i:(i+window_len)].copy()
+            for col in norm_cols:
+                temp_set.loc[:, col] = temp_set[col]
+        # print(temp_set)
+            LSTM_test_inputs.append(temp_set)
+        
+        LSTM_test_outputs = test_set['TSI(Chl-a)'][window_len:].values
 
-		LSTM_training_inputs = [np.array(LSTM_training_input) for LSTM_training_input in LSTM_training_inputs]
-		LSTM_training_inputs = np.array(LSTM_training_inputs)
+        LSTM_training_inputs = [np.array(LSTM_training_input) for LSTM_training_input in LSTM_training_inputs]
+        LSTM_training_inputs = np.array(LSTM_training_inputs)
 
-		LSTM_test_inputs = [np.array(LSTM_test_inputs) for LSTM_test_inputs in LSTM_test_inputs]
-		LSTM_test_inputs = np.array(LSTM_test_inputs)
+        LSTM_test_inputs = [np.array(LSTM_test_inputs) for LSTM_test_inputs in LSTM_test_inputs]
+        LSTM_test_inputs = np.array(LSTM_test_inputs)
 
-		# print(LSTM_last_input.shape)
-		# LSTM_last_input.to_csv("lastdata.csv")
-		# LSTM_last_input = LSTM_test_inputs[-1]
-		# LSTM_last_input.shape = (1,10,4)
+        # print(LSTM_last_input.shape)
+        # LSTM_last_input.to_csv("lastdata.csv")
+        # LSTM_last_input = LSTM_test_inputs[-1]
+        # LSTM_last_input.shape = (1,10,4)
 
-		np.random.seed(202)
-		# print(training_set['TSI(Chl-a)'][window_len:].values)
-		# print("______________________")
+        np.random.seed(202)
+        # print(training_set['TSI(Chl-a)'][window_len:].values)
+        # print("______________________")
 
-		LSTM_training_outputs = training_set['TSI(Chl-a)'][window_len:].values
+        LSTM_training_outputs = training_set['TSI(Chl-a)'][window_len:].values
 
-		# print("213123")
-		# print(LSTM_training_inputs.shape)
-		# print(LSTM_training_outputs.shape)
-		# # print(training_input)
-		# print(LSTM_training_inputs)
-		# print(LSTM_training_outputs)
-		dataInput = []
-		for i in range(0, len(LSTM_training_inputs)):
-			tem = list(LSTM_training_inputs[i][0])
-			# print(tem)
-			tem.append(LSTM_training_outputs[i])
-			# print(LSTM_training_outputs[i])
-			dataInput.append(tem)
+        # print("213123")
+        # print(LSTM_training_inputs.shape)
+        # print(LSTM_training_outputs.shape)
+        # # print(training_input)
+        # print(LSTM_training_inputs)
+        # print(LSTM_training_outputs)
+        dataInput = []
+        for i in range(0, len(LSTM_training_inputs)):
+            tem = list(LSTM_training_inputs[i][0])
+            # print(tem)
+            tem.append(LSTM_training_outputs[i])
+            # print(LSTM_training_outputs[i])
+            dataInput.append(tem)
 
-		# print(dataInput)
-		mydf = pd.DataFrame(dataInput,columns =['NH3-N(㎎/L)', 'NO3-N(㎎/L)', 'PO4-P(㎎/L)',
- 'T-N(㎎/L)','T-P(㎎/L)', 'Dissolved Total N(㎎/L)','Dissolved Total P(㎎/L)',
-  'Hydrogen ion conc.','DO (㎎/L)', 'TSI(Chl-a)','Predict'])
+        # print(dataInput)
+ #        mydf = pd.DataFrame(dataInput,columns =['NH3-N(㎎/L)', 'NO3-N(㎎/L)', 'PO4-P(㎎/L)',
+ # 'T-N(㎎/L)','T-P(㎎/L)', 'Dissolved Total N(㎎/L)','Dissolved Total P(㎎/L)',
+ #  'Hydrogen ion conc.','DO (㎎/L)', 'TSI(Chl-a)','Predict'])
 
-		corr = mydf.corr()
-		corr.to_csv("cor/"+dictrict+".csv")
-		# print(len(LSTM_test_inputs))
-			
-		# print(len(LSTM_test_outputs))
-		# print("________________")
-		# quit()
-		if count > 1:
-			training_input  = np.concatenate((training_input, LSTM_training_inputs), axis=0) 
-			training_output = np.concatenate((training_output, LSTM_training_outputs), axis=0) 
-			test_input = np.concatenate((test_input, LSTM_test_inputs), axis=0) 
-			test_output = np.concatenate((test_output, LSTM_test_outputs), axis=0) 
-		else:
-			training_input = LSTM_training_inputs 
-			training_output = LSTM_training_outputs 
-			test_input = LSTM_test_inputs 
-			test_output = LSTM_test_outputs 
-		# my_model = ""
-		# my_model = build_LSTM_model(LSTM_training_inputs, output_size=1, neurons = 35)
-		# my_model.fit(LSTM_training_inputs, LSTM_training_outputs, 
-		# 	epochs=30, batch_size=1, verbose=1, shuffle=True)
-		# predict =  my_model.predict(LSTM_test_inputs)
+        # corr = mydf.corr()
+        # corr.to_csv("cor/"+dictrict+".csv")
+        # print(len(LSTM_test_inputs))
+            
+        # print(len(LSTM_test_outputs))
+        # print("________________")
+        # quit()
+        if count > 1:
+            training_input  = np.concatenate((training_input, LSTM_training_inputs), axis=0) 
+            training_output = np.concatenate((training_output, LSTM_training_outputs), axis=0) 
+            test_input = np.concatenate((test_input, LSTM_test_inputs), axis=0) 
+            test_output = np.concatenate((test_output, LSTM_test_outputs), axis=0) 
+        else:
+            training_input = LSTM_training_inputs 
+            training_output = LSTM_training_outputs 
+            test_input = LSTM_test_inputs 
+            test_output = LSTM_test_outputs 
+        # my_model = ""
+        # my_model = build_LSTM_model(LSTM_training_inputs, output_size=1, neurons = 100)
+        # my_model.fit(LSTM_training_inputs, LSTM_training_outputs, 
+        #   epochs=30, batch_size=1, verbose=1, shuffle=True)
+        # predict =  my_model.predict(LSTM_test_inputs)
 
-		# print(len(predict))
+        # print(len(predict))
 
-		# dates = [1,2,3,4,5,6,7,8]
-		# # fig, ax1 = plt.subplots(1,1)
-		# # print(LSTM_test_inputs)
-		# # print("***************************************")
-		# # print(predict)
-		# # print(test_set['TSI(Chl-a)'][window_len-1:].values)
-		# # print("____________________________________________________")
-		# # print(LSTM_test_outputs)
-		# predict_based = test_set['TSI(Chl-a)'][window_len-1:].values
+        # dates = [1,2,3,4,5,6,7,8]
+        # # fig, ax1 = plt.subplots(1,1)
+        # # print(LSTM_test_inputs)
+        # # print("***************************************")
+        # # print(predict)
+        # # print(test_set['TSI(Chl-a)'][window_len-1:].values)
+        # # print("____________________________________________________")
+        # # print(LSTM_test_outputs)
+        # predict_based = test_set['TSI(Chl-a)'][window_len-1:].values
 
-		# final_predict = []
-		# final_predict.append(predict_based[1])
+        # final_predict = []
+        # final_predict.append(predict_based[1])
 
-		# loop = 0
-		# check = 0
-		# for i in range(1, len(predict_based)):
-		# 	if predict_based[i] == predict_based[i-1]:
-		# 		loop = loop +1
-		# 		if loop > 1:
-		# 			check = 1
-		# 			continue
-		# if check == 1:
-		# 	continue
-		# for i in range(1, len(predict)):
-		# 	temp = (1 + (predict[i]-predict[i-1])/predict[i-1])*predict_based[i-1]
-		# 	final_predict.append(temp)
-		# print(final_predict)
-		# mseValue = np.mean(np.abs((final_predict) - test_set['TSI(Chl-a)'][window_len:].values))/max(final_predict)
-		
-		# fig, ax1 = plt.subplots(1,1,figsize=(20,10))
-		# ax1.plot(timeframe[:len(test_set['TSI(Chl-a)'][window_len:].values,)],test_set['TSI(Chl-a)'][window_len:].values, label='Actual')
-		# ax1.plot(timeframe[:len(final_predict)],final_predict, label='Predicted')
-		# ax1.annotate('MAE: %.4f'%mseValue, 
-		# 	xy=(0.75, 0.9),  xycoords='axes fraction',
-		# 	xytext=(0.75, 0.9), textcoords='axes fraction')
+        # loop = 0
+        # check = 0
+        # for i in range(1, len(predict_based)):
+        #   if predict_based[i] == predict_based[i-1]:
+        #       loop = loop +1
+        #       if loop > 1:
+        #           check = 1
+        #           continue
+        # if check == 1:
+        #   continue
+        # for i in range(1, len(predict)):
+        #   temp = (1 + (predict[i]-predict[i-1])/predict[i-1])*predict_based[i-1]
+        #   final_predict.append(temp)
+        # print(final_predict)
+        # mseValue = np.mean(np.abs((final_predict) - test_set['TSI(Chl-a)'][window_len:].values))/max(final_predict)
+        
+        # fig, ax1 = plt.subplots(1,1,figsize=(20,10))
+        # ax1.plot(timeframe[:len(test_set['TSI(Chl-a)'][window_len:].values,)],test_set['TSI(Chl-a)'][window_len:].values, label='Actual')
+        # ax1.plot(timeframe[:len(final_predict)],final_predict, label='Predicted')
+        # ax1.annotate('MAE: %.4f'%mseValue, 
+        #   xy=(0.75, 0.9),  xycoords='axes fraction',
+        #   xytext=(0.75, 0.9), textcoords='axes fraction')
 
-		# ax1.set_title("Dự đoán nổng độ tảo tại trạm "+dictrict,fontsize=13)
-		# ax1.legend()
-		# fig.autofmt_xdate()
-		# ax1.set_ylim(bottom=0)
-		# ax1.set_ylim(top=100)
-		# # ax1.set_ylabel('gía cổ phiếu (VND)',fontsize=12)
-		# # ax1.xaxis.set_major_locator(loc)
-		# # ax1.xaxis.set_major_formatter(formatter)
-		# # ax1.xaxis.set_tick_params(rotation=10, labelsize=10)
-		# # ax1.set_ylim(bottom=0)
-		# # ax1.set_ylim(top=100)
-		# # plt.show()
+        # ax1.set_title("Dự đoán nổng độ tảo tại trạm "+dictrict,fontsize=13)
+        # ax1.legend()
+        # fig.autofmt_xdate()
+        # ax1.set_ylim(bottom=0)
+        # ax1.set_ylim(top=100)
+        # # ax1.set_ylabel('gía cổ phiếu (VND)',fontsize=12)
+        # # ax1.xaxis.set_major_locator(loc)
+        # # ax1.xaxis.set_major_formatter(formatter)
+        # # ax1.xaxis.set_tick_params(rotation=10, labelsize=10)
+        # # ax1.set_ylim(bottom=0)
+        # # ax1.set_ylim(top=100)
+        # # plt.show()
 
-		# dictrictName.append(dictrict)
-		# dictrictMSE.append(mseValue)
-		# finalArr.append(final_predict[-2:])
-		# finalArr2.append( test_set['TSI(Chl-a)'][window_len:].values[-2:])
+        # dictrictName.append(dictrict)
+        # dictrictMSE.append(mseValue)
+        # finalArr.append(final_predict[-2:])
+        # finalArr2.append( test_set['TSI(Chl-a)'][window_len:].values[-2:])
 
-		# plt.savefig("LSTM-tiny/"+ dictrict +'.png', dpi=100)
-
-	# except:
-	# 	continue
+        # plt.savefig("rnn-tiny/"+ dictrict +'.png', dpi=100)
+    except:
+        continue
 # y_pred = []
 # print("final predict")
 # for i in range(0, len(dictrictName)):
-# 	if finalArr[i][0] > 60 or finalArr[i][1] >60:
-# 		y_pred.append(1)
-# 	else:
-# 		y_pred.append(0)
-# 		# grade = "Eutrophy"
-# 		# if finalArr[i][0] > 70 or finalArr[i][1] >70:
-# 		# 	grade = "Hypereutrophy"
-# 		# if finalArr[i][0] > 80 or finalArr[i][1] >80:
-# 		# 	grade = "Algae bloom"
-# 		# print("tram "+ dictrictName[i]+ " co kha nang no hoa")
-# 		# print("Grade:" + grade) 
+#   if finalArr[i][0] > 60 or finalArr[i][1] >60:
+#       y_pred.append(1)
+#   else:
+#       y_pred.append(0)
+#       # grade = "Eutrophy"
+#       # if finalArr[i][0] > 70 or finalArr[i][1] >70:
+#       #   grade = "Hypereutrophy"
+#       # if finalArr[i][0] > 80 or finalArr[i][1] >80:
+#       #   grade = "Algae bloom"
+#       # print("tram "+ dictrictName[i]+ " co kha nang no hoa")
+#       # print("Grade:" + grade) 
 
 # y_true  = []
 # print("final predict")
 # for i in range(0, len(dictrictName)):
-# 	if finalArr2[i][0] > 60 or finalArr2[i][1] >60:
-# 		y_true.append(1)
-# 	else:
-# 		y_true.append(0)
-# 		# grade = "Eutrophy"
-# 		# if finalArr2[i][0] > 70 or finalArr2[i][1] >70:
-# 		# 	grade = "Hypereutrophy"
-# 		# if finalArr2[i][0] > 80 or finalArr2[i][1] >80:
-# 		# 	grade = "Algae bloom"
-# 		# print("tram "+ dictrictName[i]+ " co kha nang no hoa")
-# 		# print("Grade:" + grade) 
+#   if finalArr2[i][0] > 60 or finalArr2[i][1] >60:
+#       y_true.append(1)
+#   else:
+#       y_true.append(0)
+#       # grade = "Eutrophy"
+#       # if finalArr2[i][0] > 70 or finalArr2[i][1] >70:
+#       #   grade = "Hypereutrophy"
+#       # if finalArr2[i][0] > 80 or finalArr2[i][1] >80:
+#       #   grade = "Algae bloom"
+#       # print("tram "+ dictrictName[i]+ " co kha nang no hoa")
+#       # print("Grade:" + grade) 
 
 # print(y_true)
 # print(len(y_true))
@@ -404,7 +465,7 @@ for dictrict in dictrictArr:
 # print(classification_report(y_true, y_pred))
 # quit()
 # for i in range(0, len(dictrictName)):
-# 	print(dictrictName[i] + "||" + str(dictrictMSE[i]) + "|||")
+#   print(dictrictName[i] + "||" + str(dictrictMSE[i]) + "|||")
 
 # df = pd.DataFrame(list(zip(dictrictName, dictrictMSE)), 
 #                columns =['Name', 'val']) 
@@ -415,8 +476,8 @@ for dictrict in dictrictArr:
 # print(len(training_output))
 # mytestpd = pd.DataFrame(list(zip(training_input, training_output)), 
 #                columns =['NH3-N(㎎/L)', 'NO3-N(㎎/L)', 'PO4-P(㎎/L)',
-# 			 'T-N(㎎/L)','T-P(㎎/L)', 'Dissolved Total N(㎎/L)','Dissolved Total P(㎎/L)',
-# 			  'Hydrogen ion conc.','DO (㎎/L)', 'TSI(Chl-a)','predict']) 
+#            'T-N(㎎/L)','T-P(㎎/L)', 'Dissolved Total N(㎎/L)','Dissolved Total P(㎎/L)',
+#             'Hydrogen ion conc.','DO (㎎/L)', 'TSI(Chl-a)','predict']) 
 
 # print(mytestpd)
 
@@ -429,7 +490,7 @@ for dictrict in dictrictArr:
 # quit()
 my_model = build_RNN_model(training_input, output_size=1, neurons = 100)
 my_model.fit(training_input, training_output, 
-	epochs=50, batch_size=1, verbose=1, shuffle=True)
+    epochs=10, batch_size=1, verbose=1, shuffle=True)
 
 # model_json =  my_model.to_json()
 # model_output = "model/rnn_model.json"
@@ -454,166 +515,177 @@ my_model.fit(training_input, training_output,
 finalArr = []
 finalArr2 = []
 for dictrict in dictrictArr:
-	try:
-		count = count + 1
-		small_data = df[df['Name (E)']==dictrict]
-		# print(len(small_data))
-		small_data = small_data.drop('Name (E)', 1)
-		timeframe = small_data['YY/MM'].values
-		# print(small_data)
-		split_date = "2016/04"
+    try:
+        count = count + 1
+        small_data = df[df['Name (E)']==dictrict]
+        # print(len(small_data))
+        small_data = small_data.drop('Name (E)', 1)
+        timeframe = small_data['YY/MM'].values
+        # print(small_data)
+        split_date = "2016/04"
 
 
-		training_set, test_set = small_data[small_data['YY/MM']<split_date], small_data[small_data['YY/MM']>=split_date]
-		print(len(test_set))
-		# continue
-		training_set = training_set.drop('YY/MM', 1)
-		test_set = test_set.drop('YY/MM', 1)
-		training_set=training_set.astype('float')
+        training_set, test_set = small_data[small_data['YY/MM']<split_date], small_data[small_data['YY/MM']>=split_date]
+        print(len(test_set))
+        # continue
+        training_set = training_set.drop('YY/MM', 1)
+        test_set = test_set.drop('YY/MM', 1)
+        training_set=training_set.astype('float')
 
-		test_set=test_set.astype('float')
+        test_set=test_set.astype('float')
 
-		
-		LSTM_training_inputs = []
-		for i in range(len(training_set)-window_len):
-			temp_set = training_set[i:(i+window_len)].copy()
-			for col in norm_cols:
-				temp_set.loc[:, col] = temp_set[col]
-				#print(temp_set)
-			LSTM_training_inputs.append(temp_set)
+        
+        LSTM_training_inputs = []
+        for i in range(len(training_set)-window_len):
+            temp_set = training_set[i:(i+window_len)].copy()
+            for col in norm_cols:
+                temp_set.loc[:, col] = temp_set[col]
+                #print(temp_set)
+            LSTM_training_inputs.append(temp_set)
 
 
-		LSTM_test_inputs = []
-		for i in range(len(test_set)-window_len):
-			temp_set = test_set[i:(i+window_len)].copy()
-			for col in norm_cols:
-				temp_set.loc[:, col] = temp_set[col]
-		# print(temp_set)
-			LSTM_test_inputs.append(temp_set)
-		
-		LSTM_test_outputs = test_set['TSI(Chl-a)'][window_len:].values
+        LSTM_test_inputs = []
+        for i in range(len(test_set)-window_len):
+            temp_set = test_set[i:(i+window_len)].copy()
+            for col in norm_cols:
+                temp_set.loc[:, col] = temp_set[col]
+        # print(temp_set)
+            LSTM_test_inputs.append(temp_set)
+        
+        LSTM_test_outputs = test_set['TSI(Chl-a)'][window_len:].values
 
-		LSTM_training_inputs = [np.array(LSTM_training_input) for LSTM_training_input in LSTM_training_inputs]
-		LSTM_training_inputs = np.array(LSTM_training_inputs)
+        LSTM_training_inputs = [np.array(LSTM_training_input) for LSTM_training_input in LSTM_training_inputs]
+        LSTM_training_inputs = np.array(LSTM_training_inputs)
 
-		LSTM_test_inputs = [np.array(LSTM_test_inputs) for LSTM_test_inputs in LSTM_test_inputs]
-		LSTM_test_inputs = np.array(LSTM_test_inputs)
-		# print(LSTM_test_inputs)
+        LSTM_test_inputs = [np.array(LSTM_test_inputs) for LSTM_test_inputs in LSTM_test_inputs]
+        LSTM_test_inputs = np.array(LSTM_test_inputs)
+        # print(LSTM_test_inputs)
 
-		print(LSTM_test_inputs)
-		predict =  my_model.predict(LSTM_test_inputs)
-		print(predict)
+        print(LSTM_test_inputs)
+        predict =  my_model.predict(LSTM_test_inputs)
+        print(predict)
 
-		# print(len(predict))
+        # print(len(predict))
 
-		dates = [1,2,3,4,5,6,7,8]
-		# fig, ax1 = plt.subplots(1,1)
-		# print(LSTM_test_inputs)
-		# print("***************************************")
-		# print(predict)
-		# print(test_set['TSI(Chl-a)'][window_len-1:].values)
-		# print("____________________________________________________")
-		# print(LSTM_test_outputs)
-		predict_based = test_set['TSI(Chl-a)'][window_len-1:].values
+        dates = [1,2,3,4,5,6,7,8]
+        # fig, ax1 = plt.subplots(1,1)
+        # print(LSTM_test_inputs)
+        # print("***************************************")
+        # print(predict)
+        # print(test_set['TSI(Chl-a)'][window_len-1:].values)
+        # print("____________________________________________________")
+        # print(LSTM_test_outputs)
+        predict_based = test_set['TSI(Chl-a)'][window_len-1:].values
 
-		print(predict)
+        print(predict)
 
-		print(predict_based)
+        print(predict_based)
 
-		final_predict = []
-		final_predict.append(predict_based[1])
+        final_predict = []
+        final_predict.append(predict_based[1])
 
-		loop = 0
-		check = 0
-		# for i in range(1, len(predict_based)):
-		# 	if predict_based[i] == predict_based[i-1]:
-		# 		loop = loop +1
-		# 		if loop > 1:
-		# 			check = 1
-		# 			continue
-		# 	if check == 1:
-		# 		continue
-		for i in range(1, len(predict)):
-			temp = (1 + (predict[i]-predict[i-1])/predict[i-1])*predict_based[i-1]
-			final_predict.append(temp)
-		print(final_predict)
-		
+        loop = 0
+        check = 0
+        # for i in range(1, len(predict_based)):
+        #   if predict_based[i] == predict_based[i-1]:
+        #       loop = loop +1
+        #       if loop > 1:
+        #           check = 1
+        #           continue
+        #   if check == 1:
+        #       continue
+        for i in range(1, len(predict)):
+            temp = (1 + (predict[i]-predict[i-1])/predict[i-1])*predict_based[i-1]
+            final_predict.append(temp)
+        print(final_predict)
+        
 
-		mseValue = np.mean(np.abs((final_predict) - test_set['TSI(Chl-a)'][window_len:].values))/max(final_predict)
-		
-		fig, ax1 = plt.subplots(1,1,figsize=(20,10))
-		ax1.plot(timeframe[:len(test_set['TSI(Chl-a)'][window_len:].values,)],test_set['TSI(Chl-a)'][window_len:].values, label='Actual')
-		ax1.plot(timeframe[:len(final_predict)],final_predict, label='Predicted')
-		ax1.annotate('MAE: %.4f'%mseValue, 
-			xy=(0.75, 0.9),  xycoords='axes fraction',
-			xytext=(0.75, 0.9), textcoords='axes fraction')
+        mseValue = np.mean(np.abs((final_predict) - test_set['TSI(Chl-a)'][window_len:].values))/max(final_predict)
+        
+        np.save('numpy/RNN/'+ dictrict+"_label", test_set['TSI(Chl-a)'][-10:].values)
+        np.save('numpy/RNN/'+ dictrict+"_prediction", final_predict[-10:])
 
-		ax1.set_title("Dự đoán nổng độ tảo tại trạm "+dictrict,fontsize=13)
-		ax1.legend()
-		fig.autofmt_xdate()
-		ax1.set_ylim(bottom=0)
-		ax1.set_ylim(top=100)
-		# ax1.set_ylabel('gía cổ phiếu (VND)',fontsize=12)
-		# ax1.xaxis.set_major_locator(loc)
-		# ax1.xaxis.set_major_formatter(formatter)
-		# ax1.xaxis.set_tick_params(rotation=10, labelsize=10)
-		# ax1.set_ylim(bottom=0)
-		# ax1.set_ylim(top=100)
-		# plt.show()
-		finalArr.append(final_predict[-2:])
-		finalArr2.append(test_set['TSI(Chl-a)'][window_len:].values[-2:])
-		dictrictName.append(dictrict)
-		dictrictMSE.append(mseValue)
+        # fig, ax1 = plt.subplots(1,1,figsize=(20,10))
+        # ax1.plot(timeframe[:len(test_set['TSI(Chl-a)'][window_len:].values,)],test_set['TSI(Chl-a)'][window_len:].values, label='Actual')
+        # ax1.plot(timeframe[:len(final_predict)],final_predict, label='Predicted')
+        
+        # ax1.plot(timeframe[-10:],test_set['TSI(Chl-a)'][-10:].values, label='Actual')
+        # ax1.plot(timeframe[-10:],final_predict[-10:], label='Predicted')
 
-		plt.savefig("LSTM/"+ dictrict +'.png', dpi=100)
-	# 	# quit()
-	except:
-		continue
+
+        print("numpy save !!!!")
+        
+        # ax1.annotate('MAE: %.4f'%mseValue, 
+        #   xy=(0.75, 0.9),  xycoords='axes fraction',
+        #   xytext=(0.75, 0.9), textcoords='axes fraction')
+
+        # # ax1.set_title("Dự đoán nổng độ tảo tại trạm "+dictrict,fontsize=13)
+        # ax1.set_title("Chi-a Prediction at "+dictrict,fontsize=13)
+        # ax1.legend()
+        # fig.autofmt_xdate()
+        # ax1.set_ylim(bottom=0)
+        # ax1.set_ylim(top=100)
+        # ax1.set_ylabel('gía cổ phiếu (VND)',fontsize=12)
+        # ax1.xaxis.set_major_locator(loc)
+        # ax1.xaxis.set_major_formatter(formatter)
+        # ax1.xaxis.set_tick_params(rotation=10, labelsize=10)
+        # ax1.set_ylim(bottom=0)
+        # ax1.set_ylim(top=100)
+        # plt.show()
+        finalArr.append(final_predict[-2:])
+        finalArr2.append(test_set['TSI(Chl-a)'][window_len:].values[-2:])
+        dictrictName.append(dictrict)
+        dictrictMSE.append(mseValue)
+
+        # plt.savefig("LSTM/"+ dictrict +'.png', dpi=100)
+    #   # quit()
+    except:
+        continue
 
 
 for i in range(0, len(dictrictName)):
-	print(dictrictName[i] + "||" + str(dictrictMSE[i]) + "|||")
+    print(dictrictName[i] + "||" + str(dictrictMSE[i]) + "|||")
 
 df = pd.DataFrame(list(zip(dictrictName, dictrictMSE)), 
                columns =['Name', 'val']) 
 df.to_csv("rnn.csv")
 
-# 30-40	0,95-2,6	Hypolimia: 
-# 40-50	2,6-7,3	Alpha- Mesotrophy
-# 50-60	7,3-20	Beta- Mesotrophy
-# 60-70	20-56	Eutrophy
-# 70-80	56-155	Hypereutrophy
-# >80	>155	Algae bloom
+# 30-40 0,95-2,6    Hypolimia: 
+# 40-50 2,6-7,3 Alpha- Mesotrophy
+# 50-60 7,3-20  Beta- Mesotrophy
+# 60-70 20-56   Eutrophy
+# 70-80 56-155  Hypereutrophy
+# >80   >155    Algae bloom
 
 y_pred = []
 print("final predict")
 for i in range(0, len(dictrictName)):
-	if finalArr[i][0] > 60 or finalArr[i][1] >60:
-		y_pred.append(1)
-	else:
-		y_pred.append(0)
-		# grade = "Eutrophy"
-		# if finalArr[i][0] > 70 or finalArr[i][1] >70:
-		# 	grade = "Hypereutrophy"
-		# if finalArr[i][0] > 80 or finalArr[i][1] >80:
-		# 	grade = "Algae bloom"
-		# print("tram "+ dictrictName[i]+ " co kha nang no hoa")
-		# print("Grade:" + grade) 
+    if finalArr[i][0] > 60 or finalArr[i][1] >60:
+        y_pred.append(1)
+    else:
+        y_pred.append(0)
+        # grade = "Eutrophy"
+        # if finalArr[i][0] > 70 or finalArr[i][1] >70:
+        #   grade = "Hypereutrophy"
+        # if finalArr[i][0] > 80 or finalArr[i][1] >80:
+        #   grade = "Algae bloom"
+        # print("tram "+ dictrictName[i]+ " co kha nang no hoa")
+        # print("Grade:" + grade) 
 
 y_true  = []
 print("final predict")
 for i in range(0, len(dictrictName)):
-	if finalArr2[i][0] > 60 or finalArr2[i][1] >60:
-		y_true.append(1)
-	else:
-		y_true.append(0)
-		# grade = "Eutrophy"
-		# if finalArr2[i][0] > 70 or finalArr2[i][1] >70:
-		# 	grade = "Hypereutrophy"
-		# if finalArr2[i][0] > 80 or finalArr2[i][1] >80:
-		# 	grade = "Algae bloom"
-		# print("tram "+ dictrictName[i]+ " co kha nang no hoa")
-		# print("Grade:" + grade) 
+    if finalArr2[i][0] > 60 or finalArr2[i][1] >60:
+        y_true.append(1)
+    else:
+        y_true.append(0)
+        # grade = "Eutrophy"
+        # if finalArr2[i][0] > 70 or finalArr2[i][1] >70:
+        #   grade = "Hypereutrophy"
+        # if finalArr2[i][0] > 80 or finalArr2[i][1] >80:
+        #   grade = "Algae bloom"
+        # print("tram "+ dictrictName[i]+ " co kha nang no hoa")
+        # print("Grade:" + grade) 
 
 print(y_true)
 print(len(y_true))
